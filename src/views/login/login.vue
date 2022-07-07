@@ -26,7 +26,6 @@
   </div>
 </template>
 <script>
-
 import { ArrowRightIcon } from "vue-feather-icons";
 import { BForm, BFormGroup } from "bootstrap-vue";
 export default {
@@ -38,7 +37,7 @@ export default {
 };
 </script>
 <style>
-.title{
+.title {
   position: absolute;
   color: white;
 }
@@ -60,12 +59,12 @@ export default {
   width: 100%;
   margin: 0 auto;
   padding: 10px;
-  border-color: #7B7D7D ;
+  border-color: #7b7d7d;
   margin-bottom: 10px;
   border-radius: 10px;
-  background: #979A9A;
+  background: #979a9a;
 }
-.input::placeholder{
-  color: #F0F3F4;
+.input::placeholder {
+  color: #f0f3f4;
 }
 </style>
