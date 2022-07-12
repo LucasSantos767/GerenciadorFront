@@ -8,3 +8,13 @@ export const http: AxiosInstance = axios.create({
     }
 })
 
+http.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('token')
+    if (!config.headers) config.headers = {};
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+}, function (erro) {
+    return Promise.reject(erro)
+})

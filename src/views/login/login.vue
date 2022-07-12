@@ -39,7 +39,6 @@
 <script>
 import { ArrowRightIcon } from "vue-feather-icons";
 import { BForm, BFormGroup, BButton, BCardSubTitle } from "bootstrap-vue";
-import { http } from "@/services/api";
 export default {
   data() {
     return {
@@ -51,7 +50,7 @@ export default {
   },
   methods: {
     Login() {
-      http
+      this.$http
         .post("login", this.usuario)
         .then((resposta) => {
           console.log(resposta);
@@ -71,7 +70,7 @@ export default {
 };
 </script>
 <style scoped>
-.teste{
+.teste {
   position: relative;
 }
 .LoginTitle {
@@ -149,7 +148,6 @@ export default {
   left: 3.4%;
 }
 @media screen and (max-width: 800px) {
-  
   .sub,
   .sub-title2 {
     top: 25px;

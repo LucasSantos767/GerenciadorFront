@@ -5,8 +5,10 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { http } from "@/services/api";
 
 Vue.config.productionTip = false
+Vue.prototype.$http = http
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 
