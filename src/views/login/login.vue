@@ -2,7 +2,8 @@
   <div class="d-flex justify-content-between main">
     <div class="FormL d-flex align-items-center justify-content-center">
       <b-form @submit.prevent="Login">
-        <b-form-group class="pb-3">
+        <h2 class="LoginTitle">LOGIN</h2>
+        <b-form-group class="pb-3 teste">
           <p class="sub">Email</p>
           <b-input
             type="email"
@@ -10,7 +11,7 @@
             v-model="usuario.email"
           />
         </b-form-group>
-        <b-form-group>
+        <b-form-group class="teste">
           <p class="sub-title2">Senha</p>
           <b-input
             class="input shadow-none"
@@ -18,11 +19,19 @@
             v-model="usuario.password"
           />
         </b-form-group>
-        <div class="btn pt-3">
+        <div class="btn pt-4">
           <b-button type="submit" class="custom-class"
             ><arrow-right-icon size="1.5x"
           /></b-button>
         </div>
+        <footer class="footer1">
+          <div class="d-flex justify-content-center my-2 border-bottom pb-1">
+            <span>desafio@teste.com.br</span>
+          </div>
+          <div class="d-flex justify-content-center">
+            <label>Desafio Gerenciador Teste © Copyright 2022</label>
+          </div>
+        </footer>
       </b-form>
     </div>
   </div>
@@ -30,7 +39,7 @@
 <script>
 import { ArrowRightIcon } from "vue-feather-icons";
 import { BForm, BFormGroup, BButton, BCardSubTitle } from "bootstrap-vue";
-import axios from "axios";
+import { http } from "@/services/api";
 export default {
   data() {
     return {
@@ -42,12 +51,12 @@ export default {
   },
   methods: {
     Login() {
-      axios
-        .post("http://localhost:3000/login", this.usuario)
+      http
+        .post("login", this.usuario)
         .then((resposta) => {
           console.log(resposta);
           localStorage.setItem("token", resposta.data.access_token);
-          this.$router.push({ name: "about" });
+          this.$router.push({ name: "home" });
         })
         .catch((erro) => console.log(erro));
     },
@@ -61,44 +70,56 @@ export default {
   },
 };
 </script>
-<style>
-.sub {
+<style scoped>
+.teste{
+  position: relative;
+}
+.LoginTitle {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #4b6a86;
+  padding-bottom: 43%;
+}
+.sub {
+  width: 43px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #110729;
   font-size: 14px;
-  left: 6%;
-  top: 34%;
+  left: 7%;
+  top: -13%;
   background-color: whitesmoke;
   position: absolute;
-}
-.btn {
-  width: 55%;
 }
 .sub-title2 {
+  width: 44px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #4b6a86;
+  color: #110729;
   font-size: 14px;
-  left: 6%;
-  top: 45%;
+  left: 7%;
+  top: -18%;
   background-color: whitesmoke;
   position: absolute;
-}
-.title {
-  position: absolute;
-  color: white;
 }
 .main {
   height: 100vh;
   width: 100vw;
-  background-color: #17202a;
+  background-color: #110729;
   background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center;
+  background-image: url("../../assets/reuniao.jpg");
+  background-size: 60%;
+  background-position-x: 89%;
+  background-position-y: 48%;
+}
+.btn {
+  width: 40%;
 }
 .custom-class {
-  background-color: #4b6a86;
+  width: 100%;
+  background-color: #110729;
+}
+.custom-class:hover {
+  background-color: #07cbf5;
 }
 .FormL {
   width: 30%;
@@ -107,35 +128,40 @@ export default {
 }
 .input {
   display: flex;
-  align-items: center;
-  min-width: 200px;
   border-radius: 10px;
-  border: 2px solid #4b6a86;
+  border: 2px solid #110729;
   margin-bottom: 20px;
-  overflow: hidden;
   background: none;
   height: 35px;
-  width: 20vw;
+  width: 100%;
   font-size: 12px;
   outline: none;
-  padding: 0 0 0 1rem;
 }
 .input:focus {
   font-size: 12px;
   color: black;
   background-color: whitesmoke;
-  box-shadow: red;
+  border: solid 2px #07cbf5;
+}
+.footer1 {
+  color: #110729;
+  padding-top: 30%;
+  left: 3.4%;
 }
 @media screen and (max-width: 800px) {
+  
   .sub,
   .sub-title2 {
     top: 25px;
-    width: 22%;
+    width: 15%;
     position: relative;
   }
   .FormL {
     width: 100%;
     border-right: none;
+  }
+  .footer1 {
+    left: 8%;
   }
 }
 </style>
