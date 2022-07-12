@@ -1,23 +1,11 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
+      <b-link class="navbar-brand a" :to="{name:'home'}"  > Gerenciador</b-link>
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown right>
           <template #button-content>
-            <em class="p">User</em>
+            <user-icon size="1.5x" class="custom-class"></user-icon>
           </template>
           <b-dropdown-item class="p">Profile</b-dropdown-item>
           <b-dropdown-item @click="efetuarLogout">Sign Out</b-dropdown-item>
@@ -27,6 +15,7 @@
   </nav>
 </template>
 <script>
+import { UserIcon } from "vue-feather-icons";
 import {
   BNavbar,
   BNavbarBrand,
@@ -55,17 +44,24 @@ export default {
     BDropdownItem,
     BNavItemDropdown,
     BNavForm,
+    UserIcon
   },
 };
 </script>
-<style>
+<style scoped>
+.a {   
+    color: black;   
+}
+.a:hover {
+    color: blue;
+}
 .menucolor {
   background-color: whitesmoke;
 }
 .p {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #110729;;
+  color: #110729;
 }
 .aa {
   width: 100vw;
