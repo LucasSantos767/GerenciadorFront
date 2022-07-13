@@ -18,7 +18,12 @@ const routes: Array<RouteConfig> = [
   {
     path: '/app/funcionarios',
     name: 'funcionarios',
-    component: () => import('../views/funcionarios-lista/funcionarios-lista.vue')
+    component: () => import('../views/list-employee/list-employee.vue')
+  },
+  {
+    path: '/app/cadastro',
+    name: 'created-employee',
+    component: () => import('../views/created-employee/created-employee.vue')
   },
 ]
 

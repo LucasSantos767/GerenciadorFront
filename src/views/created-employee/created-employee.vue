@@ -1,0 +1,140 @@
+<template>
+  <div class="main">
+    <Menu />
+    <div class="FormL d-flex align-items-center justify-content-center">
+      <b-form @submit.prevent="Cadastro">
+        <h2 class="LoginTitle">Cadastro</h2>
+        <b-form-group class="pb-3 teste">
+          <p class="sub">Nome</p>
+          <b-input type="text" class="input shadow-none" v-model="usuario.name"/>
+        </b-form-group>
+        <b-form-group class="pb-3 teste">
+          <p class="sub">Email</p>
+          <b-input type="email" class="input shadow-none" v-model="usuario.email"/>
+        </b-form-group>
+        <b-form-group class="pb-3 teste">
+          <p class="sub">Senha</p>
+          <b-input type="password" class="input shadow-none" v-model="usuario.password"/>
+        </b-form-group>
+        <b-form-group class="teste">
+          <p class="sub-title2">Cargo</p>
+          <b-form-select
+            class="input shadow-none"
+            type="selected"
+            :options="options"
+            v-model="usuario.role"
+          />
+        </b-form-group>
+        <div class="btn pt-4">
+          <b-button type="submit" class="custom-class">Criar</b-button>
+        </div>
+      </b-form>
+    </div>
+  </div>
+</template>
+<script>
+import Menu from "@/components/menu.vue";
+export default {
+  data() {
+    return {
+      usuario: {
+        name: "",
+        email: "",
+        password: "",
+        role: "",
+      },
+      selected: null,
+      options: [
+        { value: "user", text: "Usuário" },
+        { value: "admin", text: "Admin" },
+      ],
+    };
+  },
+  methods: {
+    Cadastro() {
+      this.$http
+        .post("register", this.usuario)
+        .then((resposta) => {
+          console.log(resposta);
+        })
+        .catch((erro) => console.log(erro));
+    },
+  },
+  components: {
+    Menu,
+  },
+};
+</script>
+<style scoped>
+.main {
+  height: 100vh;
+  width: 100vw;
+  background-color: #110729;
+}
+.teste {
+  position: relative;
+}
+.LoginTitle {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding-bottom: 20%;
+}
+.sub {
+  width: 43px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #110729;
+  font-size: 14px;
+  left: 7%;
+  top: -13%;
+  background-color: whitesmoke;
+  position: absolute;
+}
+.sub-title2 {
+  width: 44px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #110729;
+  font-size: 14px;
+  left: 7%;
+  top: -18%;
+  background-color: whitesmoke;
+  position: absolute;
+}
+.FormL {
+  height: 70%;
+  width: 50%;
+  border-right: solid 2px #4b6a86;
+  background-color: whitesmoke;
+  margin-left: 25%;
+  margin-top: 3%;
+  border-radius: 10px;
+}
+.input {
+  display: flex;
+  border-radius: 10px;
+  border: 2px solid #110729;
+  margin-bottom: 20px;
+  background: none;
+  height: 35px;
+  width: 100%;
+  font-size: 12px;
+  outline: none;
+}
+.input:focus {
+  font-size: 12px;
+  color: black;
+  background-color: whitesmoke;
+  border: solid 2px #07cbf5;
+}
+.btn {
+  width: 100%;
+}
+.custom-class {
+  width: 100%;
+  background-color: #110729;
+}
+.custom-class:hover {
+  background-color: #07cbf5;
+}
+</style>

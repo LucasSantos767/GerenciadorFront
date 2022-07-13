@@ -7,7 +7,7 @@
         <users-icon size="2x" class="custom-class"></users-icon>
         <b-card-text> Funcionários </b-card-text>
       </b-card>
-      <b-card tag="article" class="teste" type="button">
+      <b-card tag="article" class="teste" type="button" @click="created">
         <user-plus-icon size="2x" class="custom-class"></user-plus-icon>
         <b-card-text> Cadastro </b-card-text>
       </b-card>
@@ -25,6 +25,9 @@ export default {
   methods: {
     func() {
       this.$router.push({ name: "funcionarios" });
+    },
+      created() {
+      this.$router.push({ name: "created-employee" });
     },
   },
   components: {
