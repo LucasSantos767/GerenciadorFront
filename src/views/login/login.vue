@@ -18,9 +18,6 @@
             type="password"
             v-model="usuario.password"
           />
-          <p class="alert alert-danger" v-if="mensagemErro">
-            {{ mensagemErro }}
-          </p>
         </b-form-group>
         <div class="btn pt-4">
           <b-button type="submit" class="custom-class"
@@ -49,7 +46,6 @@ export default {
         email: "",
         password: "",
       },
-      mensagemErro: "",
     };
   },
   methods: {
@@ -58,11 +54,20 @@ export default {
         .dispatch("Login", this.usuario)
         .then(() => {
           this.$router.push({ name: "home" });
-          this.mensagemErro = "";
+          this.$toast(`Login efetuado com sucesso`, {
+            type: "success",
+          });
         })
         .catch((erro) => {
+          if (erro.request.status == 400) {
+            this.$toast(`Email e senha precisam ser preenchidos.`, {
+              type: "info",
+            });
+          }
           if (erro.request.status == 401) {
-            this.mensagemErro = "Email ou senha inválidos";
+            this.$toast(`Email ou senha inválidos.`, {
+              type: "error",
+            });
           }
         });
     },
