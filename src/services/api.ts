@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-
+import store from "@/store";
 export const http: AxiosInstance = axios.create({
     baseURL: "http://localhost:3000/",
     headers: {
@@ -9,10 +9,10 @@ export const http: AxiosInstance = axios.create({
 })
 
 http.interceptors.request.use(function (config) {
-    const token = localStorage.getItem('token')
-    if (!config.headers) config.headers = {};
+    const token = store.state.token
+
     if (token) {
-        config.headers.Authorization = `Bearer ${token}`
+        if (config.headers) config.headers.Authorization = `Bearer ${token}`
     }
     return config
 }, function (erro) {

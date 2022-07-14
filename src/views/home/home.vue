@@ -26,7 +26,7 @@ export default {
     func() {
       this.$router.push({ name: "funcionarios" });
     },
-      created() {
+    created() {
       this.$router.push({ name: "created-employee" });
     },
   },

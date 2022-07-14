@@ -54,8 +54,8 @@ export default {
     Cadastro() {
       this.$http
         .post("register", this.usuario)
-        .then((resposta) => {
-          console.log(resposta);
+        .then((response) => {
+          console.log(response);
         })
         .catch((erro) => console.log(erro));
     },

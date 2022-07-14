@@ -30,7 +30,7 @@ import {
 export default {
   methods: {
     efetuarLogout() {
-      localStorage.clear("token");
+      this.$store.commit('DESLOGAR_USUARIO')
       this.$router.push({ name: "login" });
     },
   },

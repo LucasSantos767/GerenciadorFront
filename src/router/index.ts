@@ -1,6 +1,6 @@
+import store from '@/store'
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
@@ -8,7 +8,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: "login",
-    component: () => import('../views/login/login.vue')
+    component: () => import('../views/login/login.vue'),
+    meta:{
+      requireAuth:true
+    }
   },
   {
     path: '/app/home',
@@ -32,5 +35,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+router.beforeEach((routeTo, routeFrom, next) => {
+  console.log(routeTo)
+  let loginRequired = routeTo.matched.some((ruta) => ruta.meta.requireAuth);
+  if (!loginRequired && !store.state.token) {
+
+    return routeTo.path == '/' ? next() : next({
+      path:'/'
+    });
+  }
+  next();
+})
+
 
 export default router

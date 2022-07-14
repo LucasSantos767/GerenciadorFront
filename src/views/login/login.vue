@@ -18,6 +18,7 @@
             type="password"
             v-model="usuario.password"
           />
+          <p class="alert alert-danger" v-if="mensagemErro">{{mensagemErro}}</p>
         </b-form-group>
         <div class="btn pt-4">
           <b-button type="submit" class="custom-class"
@@ -46,18 +47,22 @@ export default {
         email: "",
         password: "",
       },
+      mensagemErro: "",
     };
   },
   methods: {
     Login() {
-      this.$http
-        .post("login", this.usuario)
-        .then((resposta) => {
-          console.log(resposta);
-          localStorage.setItem("token", resposta.data.access_token);
-          this.$router.push({ name: "home" });
+      this.$store
+        .dispatch("Login", this.usuario)
+        .then(() => {
+          this.$router.push({ name: "home" })
+          this.mensagemErro=''
         })
-        .catch((erro) => console.log(erro));
+         .catch(erro => {
+          if (erro.request.status == 401) {
+            this.mensagemErro = 'Email ou senha inválidos';
+          }
+        });
     },
   },
   components: {
