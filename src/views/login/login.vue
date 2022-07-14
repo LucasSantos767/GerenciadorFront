@@ -18,7 +18,9 @@
             type="password"
             v-model="usuario.password"
           />
-          <p class="alert alert-danger" v-if="mensagemErro">{{mensagemErro}}</p>
+          <p class="alert alert-danger" v-if="mensagemErro">
+            {{ mensagemErro }}
+          </p>
         </b-form-group>
         <div class="btn pt-4">
           <b-button type="submit" class="custom-class"
@@ -55,12 +57,12 @@ export default {
       this.$store
         .dispatch("Login", this.usuario)
         .then(() => {
-          this.$router.push({ name: "home" })
-          this.mensagemErro=''
+          this.$router.push({ name: "home" });
+          this.mensagemErro = "";
         })
-         .catch(erro => {
+        .catch((erro) => {
           if (erro.request.status == 401) {
-            this.mensagemErro = 'Email ou senha inválidos';
+            this.mensagemErro = "Email ou senha inválidos";
           }
         });
     },
