@@ -6,15 +6,27 @@
         <h2 class="LoginTitle">Cadastro</h2>
         <b-form-group class="pb-3 teste">
           <p class="sub">Nome</p>
-          <b-input type="text" class="input shadow-none" v-model="usuario.name"/>
+          <b-input
+            type="text"
+            class="input shadow-none"
+            v-model="usuario.name"
+          />
         </b-form-group>
         <b-form-group class="pb-3 teste">
           <p class="sub">Email</p>
-          <b-input type="email" class="input shadow-none" v-model="usuario.email"/>
+          <b-input
+            type="email"
+            class="input shadow-none"
+            v-model="usuario.email"
+          />
         </b-form-group>
         <b-form-group class="pb-3 teste">
           <p class="sub">Senha</p>
-          <b-input type="password" class="input shadow-none" v-model="usuario.password"/>
+          <b-input
+            type="password"
+            class="input shadow-none"
+            v-model="usuario.password"
+          />
         </b-form-group>
         <b-form-group class="teste">
           <p class="sub-title2">Cargo</p>
@@ -55,9 +67,23 @@ export default {
       this.$http
         .post("register", this.usuario)
         .then((response) => {
+          this.$toast(`Usuários cadastrado com sucesso.`, {
+            type: "success",
+          });
           console.log(response);
         })
-        .catch((erro) => console.log(erro));
+        .catch((erro) => {
+          if (erro.request.status == 400) {
+            this.$toast(`Email e senha precisam ser preenchidos.`, {
+              type: "info",
+            });
+          }
+          if (erro.request.status == 401) {
+            this.$toast(`Email ou senha inválidos.`, {
+              type: "error",
+            });
+          }
+        });
     },
   },
   components: {

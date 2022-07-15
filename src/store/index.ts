@@ -1,7 +1,7 @@
+import jwtDecode from 'jwt-decode';
 import { http } from '@/services/api';
 import Vue from 'vue'
 import Vuex from 'vuex'
-
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -24,9 +24,11 @@ export default new Vuex.Store({
         http.post('login', usuario)
           .then(response => {
             commit('USUARIO_LOGADO', {
-              token: response.data.access_token,
+              token: response.data.access_token
             })
             resolve(response.data)
+            var decodedHeader = jwtDecode('token', { header: true });
+            console.log(decodedHeader);
           })
           .catch(erro => {
             console.log(erro)

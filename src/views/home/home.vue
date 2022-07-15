@@ -1,21 +1,30 @@
 <template>
   <div class="main">
     <Menu />
-    <h2 class="title">Bem Vindo ao Gerenciador</h2>
-    <div class="d-flex align-items-center justify-content-around conteudo">
-      <b-card tag="article" class="teste" type="button" @click="func">
-        <users-icon size="2x" class="custom-class"></users-icon>
-        <b-card-text> Funcionários </b-card-text>
-      </b-card>
-      <b-card tag="article" class="teste" type="button" @click="created">
-        <user-plus-icon size="2x" class="custom-class"></user-plus-icon>
-        <b-card-text> Cadastro </b-card-text>
-      </b-card>
-      <b-card tag="article" class="teste" type="button">
-        <settings-icon size="2x" class="custom-class"></settings-icon>
-        <b-card-text> Editar Funcionários </b-card-text>
-      </b-card>
+    <div class="HomeCab">
+      <h2 class="title">Bem Vindo ao Gerenciador</h2>
+      <img class="HomeImg" src="../../assets/Group275.png" />
     </div>
+    <b-row class="d-flex align-items-center justify-content-center conteudo">
+      <b-col class="pt-5">
+        <b-card tag="article" type="button" @click="func">
+          <users-icon size="2x" class="custom-class"></users-icon>
+          <b-card-text> Funcionários </b-card-text>
+        </b-card>
+      </b-col>
+      <b-col class="pt-5">
+        <b-card class="button" tag="article" type="button" @click="created">
+          <user-plus-icon size="2x" class="custom-class"></user-plus-icon>
+          <b-card-text> Cadastro </b-card-text>
+        </b-card>
+      </b-col>
+      <b-col class="pt-5">
+        <b-card tag="article" type="button">
+          <settings-icon size="2x" class="custom-class"></settings-icon>
+          <b-card-text> Editar Funcionários </b-card-text>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 <script>
@@ -45,12 +54,14 @@ export default {
   background-color: #110729;
 }
 .conteudo {
-  width: 80%;
-  margin-left: 10%;
-  margin-top: 10%;
+  width: 60%;
+  margin-left: 20%;
 }
-.teste {
-  width: 13vw;
+.HomeImg {
+  width: 16vw;
+}
+.HomeCab {
+  margin-top: 6%;
 }
 .title {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
