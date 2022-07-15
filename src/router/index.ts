@@ -9,8 +9,8 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: "login",
     component: () => import('../views/login/login.vue'),
-    meta:{
-      requireAuth:true
+    meta: {
+      requireAuth: true
     }
   },
   {
@@ -28,6 +28,11 @@ const routes: Array<RouteConfig> = [
     name: 'created-employee',
     component: () => import('../views/created-employee/created-employee.vue')
   },
+  {
+    path: '/app/editar-funcionarios',
+    name: 'edit-employee',
+    component: () => import('../views/edit-employee/edit-employee.vue')
+  },
 ]
 
 const router = new VueRouter({
@@ -41,7 +46,7 @@ router.beforeEach((routeTo, routeFrom, next) => {
   if (!loginRequired && !store.state.token) {
 
     return routeTo.path == '/' ? next() : next({
-      path:'/'
+      path: '/'
     });
   }
   next();

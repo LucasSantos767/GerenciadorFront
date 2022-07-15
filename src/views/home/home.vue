@@ -19,7 +19,7 @@
         </b-card>
       </b-col>
       <b-col class="pt-5">
-        <b-card tag="article" type="button">
+        <b-card tag="article" type="button"  @click="edit">
           <settings-icon size="2x" class="custom-class"></settings-icon>
           <b-card-text> Editar Funcionários </b-card-text>
         </b-card>
@@ -37,6 +37,9 @@ export default {
     },
     created() {
       this.$router.push({ name: "created-employee" });
+    },
+    edit() {
+      this.$router.push({ name: "edit-employee" });
     },
   },
   components: {

@@ -17,7 +17,8 @@
     "vue-feather-icons": "^5.1.0",
     "vue-router": "^3.5.1",
     "vue-toastification": "^1.7.14",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "vuex-persistedstate": "^4.1.0"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
