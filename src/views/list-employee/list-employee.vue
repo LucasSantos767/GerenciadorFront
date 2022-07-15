@@ -18,6 +18,11 @@
           :clearable="false"
           class="per-page-selector d-inline-block mx-50 input"
         />
+        <b-form-input
+          v-model="search"
+          class="pesquisa h-75 w-25 input shadow-none"
+          placeholder="Pesquisar"
+        />
       </div>
       <b-table
         class="tabela"
@@ -32,6 +37,7 @@
         :fields="filds"
         :per-page="perPage"
         :current-page="currentPage"
+        :filter="search"
       >
         <template #cell(name)="data">
           <b-card-text class="info">{{ data.value }}</b-card-text>
@@ -75,6 +81,7 @@ export default {
       perPage: 5,
       currentPage: 1,
       pageOptions: [3, 5, 10],
+      search: null,
       filds: [
         {
           key: "name",
@@ -155,5 +162,8 @@ export default {
 .infoTable {
   margin-left: 4%;
   padding-bottom: 10px;
+}
+.pesquisa{
+  margin-left: 57%;
 }
 </style>
