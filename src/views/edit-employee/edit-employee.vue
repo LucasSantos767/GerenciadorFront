@@ -41,7 +41,7 @@
               <span class="align-middle ml-50">Editar</span>
             </b-dropdown-item>
 
-            <b-dropdown-item>
+            <b-dropdown-item @click.prevent="Deletar(data.item)">
               <trash-2-icon icon="TrashIcon" size="1x" />
               <span class="align-middle ml-50">Deletar</span>
             </b-dropdown-item>
@@ -75,13 +75,13 @@
         centered
         title="Editar Funcionário"
       >
-        <b-form>
+        <b-form @submit.prevent="Editar">
           <b-form-group class="pb-3 teste">
             <p class="sub">Nome</p>
             <b-input
               type="text"
               class="inputEdit shadow-none"
-              :value="conteudotable.name"
+              v-model="conteudotable.name"
             />
           </b-form-group>
           <b-form-group class="pb-3 teste">
@@ -89,8 +89,8 @@
             <b-input
               type="email"
               id="email"
-              :value="conteudotable.email"
               class="inputEdit shadow-none"
+              v-model="conteudotable.email"
             />
           </b-form-group>
           <b-form-group class="pb-3 teste">
@@ -98,7 +98,7 @@
             <b-input
               type="password"
               class="inputEdit shadow-none"
-              :value="conteudotable.password"
+              v-model="conteudotable.password"
             />
           </b-form-group>
           <b-form-group class="teste">
@@ -106,10 +106,11 @@
             <b-form-select
               class="inputEdit shadow-none"
               type="selected"
-              :value="conteudotable.role"
+              v-model="conteudotable.role"
               :options="options"
             />
           </b-form-group>
+          <button>aaa</button>
         </b-form>
       </b-modal>
     </div>
@@ -179,6 +180,9 @@ export default {
       .finally(() => console.log(this.usuarios));
   },
   methods: {
+    Deletar(conteudotable){
+      this.$http.delete(`delete/${conteudotable._id}`)
+    },
     ModalEdit(usuarios) {
       this.conteudotable = {
         ...usuarios,
