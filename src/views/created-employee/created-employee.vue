@@ -70,6 +70,7 @@ export default {
           this.$toast(`Usuários cadastrado com sucesso.`, {
             type: "success",
           });
+          this.$router.push({name:'funcionarios'})
           console.log(response);
         })
         .catch((erro) => {

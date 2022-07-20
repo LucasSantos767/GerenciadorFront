@@ -25,6 +25,14 @@
         />
       </div>
       <b-table
+      outlined
+        striped
+        borderless
+        bordered
+        responsive
+        hover
+        fixed
+        class="tabela"
         :per-page="perPage"
         :current-page="currentPage"
         :items="usuarios"
@@ -69,13 +77,10 @@
       </b-pagination>
       <b-modal
         id="modal-login"
-        cancel-variant="outline-secondary"
-        ok-title="Salvar"
-        cancel-title="Close"
         centered
         title="Editar Funcionário"
       >
-        <b-form @submit.prevent="Editar">
+        <b-form @submit.prevent="Editar()">
           <b-form-group class="pb-3 teste">
             <p class="sub">Nome</p>
             <b-input
@@ -110,7 +115,9 @@
               :options="options"
             />
           </b-form-group>
-          <button>aaa</button>
+          <div class="btn pt-2">
+          <b-button type="submit" class="custom-class">Atualizar</b-button>
+        </div>
         </b-form>
       </b-modal>
     </div>
@@ -180,8 +187,22 @@ export default {
       .finally(() => console.log(this.usuarios));
   },
   methods: {
-    Deletar(conteudotable){
-      this.$http.delete(`delete/${conteudotable._id}`)
+    Editar() {
+      this.$http
+        .patch(`update/${this.conteudotable._id}`, this.conteudotable)
+        .then((response) => {
+          this.$toast(`Usuários atualizado com sucesso.`, {
+            type: "success",
+          });
+          this.$router.go(this.$router.currentRoute)
+        })
+        .catch((erro) => console.log(erro));
+    },
+    Deletar(conteudotable) {
+      this.$http
+        .delete(`delete/${conteudotable._id}`)
+        .then((response) => console.log(response))
+        .catch((erro) => console.log(erro));
     },
     ModalEdit(usuarios) {
       this.conteudotable = {
@@ -202,9 +223,6 @@ export default {
 };
 </script>
 <style scoped>
-.info {
-  color: red;
-}
 .main {
   height: 100vh;
   width: 100vw;
@@ -255,7 +273,8 @@ export default {
   position: relative;
 }
 .sub {
-  width: 43px;
+  width: 44px;
+  height: 12px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
@@ -267,6 +286,7 @@ export default {
 }
 .sub-title2 {
   width: 44px;
+  height: 12px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
