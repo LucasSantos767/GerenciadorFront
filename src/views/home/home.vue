@@ -12,13 +12,13 @@
           <b-card-text> Funcionários </b-card-text>
         </b-card>
       </b-col>
-      <b-col class="pt-5">
+      <b-col class="pt-5" v-if="IsAdmin">
         <b-card class="button" tag="article" type="button" @click="created">
           <user-plus-icon size="2x" class="custom-class"></user-plus-icon>
           <b-card-text> Cadastro </b-card-text>
         </b-card>
       </b-col>
-      <b-col class="pt-5">
+      <b-col class="pt-5" v-if="IsAdmin">
         <b-card tag="article" type="button"  @click="edit">
           <settings-icon size="2x" class="custom-class"></settings-icon>
           <b-card-text> Editar Funcionários </b-card-text>
@@ -29,8 +29,15 @@
 </template>
 <script>
 import { UsersIcon, UserPlusIcon, SettingsIcon } from "vue-feather-icons";
+import { mapGetters} from 'vuex'
 import Menu from "@/components/menu.vue";
+
 export default {
+  computed:{
+    ...mapGetters(
+     ['IsAdmin']
+    )
+  },
   methods: {
     func() {
       this.$router.push({ name: "funcionarios" });

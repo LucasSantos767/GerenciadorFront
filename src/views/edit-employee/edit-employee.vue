@@ -128,9 +128,9 @@
               Atualizar
             </b-button>
             <b-button
-              v-ripple.400="'rgba(30, 30, 30, 0.15)'"
-              @click.prevent="hideModal()"
-              variant="outline-dark"
+              v-ripple.400="'rgba(234, 84, 85, 0.15)'"
+            @click.prevent="hideModal()"
+            variant="outline-danger"
             >
               Cancelar
             </b-button>

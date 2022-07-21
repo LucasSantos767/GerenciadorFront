@@ -57,6 +57,7 @@ export default {
           this.$toast(`Login efetuado com sucesso`, {
             type: "success",
           });
+        this.$store.dispatch("Role",this.usuario)
         })
         .catch((erro) => {
           if (erro.request.status == 400) {
