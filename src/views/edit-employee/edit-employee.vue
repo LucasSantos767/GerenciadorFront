@@ -25,7 +25,7 @@
         />
       </div>
       <b-table
-      outlined
+        outlined
         striped
         borderless
         bordered
@@ -42,14 +42,14 @@
         <template v-slot:cell(actions)="data">
           <b-dropdown variant="link" no-caret>
             <template #button-content>
-              <more-vertical-icon size="1x" class="custom-class" />
+              <more-vertical-icon size="1x" class="morei" />
             </template>
             <b-dropdown-item @click.prevent="ModalEdit(data.item)">
               <edit-icon icon="EditIcon" size="1x" />
               <span class="align-middle ml-50">Editar</span>
             </b-dropdown-item>
 
-            <b-dropdown-item @click.prevent="Deletar(data.item)">
+            <b-dropdown-item @click.prevent="ModalConfirm(data.item)">
               <trash-2-icon icon="TrashIcon" size="1x" />
               <span class="align-middle ml-50">Deletar</span>
             </b-dropdown-item>
@@ -69,15 +69,19 @@
         next-class="next-item"
       >
         <template #prev-text>
-          <arrow-left-icon size="1x" class="custom-class" />
+          <arrow-left-icon size="1x" />
         </template>
         <template #next-text>
-          <arrow-right-icon size="1x" class="custom-class" />
+          <arrow-right-icon size="1x" />
         </template>
       </b-pagination>
       <b-modal
         id="modal-login"
         centered
+        hide-footer
+        hide-header-close
+        header-text-variant="light"
+        header-bg-variant="info"
         title="Editar Funcionário"
       >
         <b-form @submit.prevent="Editar()">
@@ -115,10 +119,51 @@
               :options="options"
             />
           </b-form-group>
-          <div class="btn pt-2">
-          <b-button type="submit" class="custom-class">Atualizar</b-button>
-        </div>
+          <div class="d-flex justify-content-between pt-2">
+            <b-button
+              v-ripple.400="'rgba(40, 199, 111, 0.15)'"
+              v-b-modal.modal-success
+              variant="outline-success"
+            >
+              Atualizar
+            </b-button>
+            <b-button
+              v-ripple.400="'rgba(30, 30, 30, 0.15)'"
+              @click.prevent="hideModal()"
+              variant="outline-dark"
+            >
+              Cancelar
+            </b-button>
+          </div>
         </b-form>
+      </b-modal>
+      <b-modal
+        id="modal-danger"
+        centered
+        hide-footer
+        hide-header-close
+        header-bg-variant="danger"
+        header-text-variant="light"
+        title="Deletar Funcionário"
+        ref="modal-fechar"
+      >
+        <b-card-text> Deseja excluir este usuário? </b-card-text>
+        <div class="d-flex justify-content-between pt-2">
+          <b-button
+            v-ripple.400="'rgba(234, 84, 85, 0.15)'"
+            @click.prevent="Deletar()"
+            variant="outline-danger"
+          >
+            Excluir
+          </b-button>
+          <b-button
+            v-ripple.400="'rgba(30, 30, 30, 0.15)'"
+            @click.prevent="hideModal()"
+            variant="outline-dark"
+          >
+            Cancelar
+          </b-button>
+        </div>
       </b-modal>
     </div>
   </div>
@@ -190,19 +235,23 @@ export default {
     Editar() {
       this.$http
         .patch(`update/${this.conteudotable._id}`, this.conteudotable)
-        .then((response) => {
+        .then(() => {
           this.$toast(`Usuários atualizado com sucesso.`, {
             type: "success",
           });
-          this.$router.go(this.$router.currentRoute)
+          this.$router.go(this.$router.currentRoute);
         })
         .catch((erro) => console.log(erro));
     },
-    Deletar(conteudotable) {
+    Deletar() {
       this.$http
-        .delete(`delete/${conteudotable._id}`)
+        .delete(`delete/${this.conteudotable._id}`)
         .then((response) => console.log(response))
         .catch((erro) => console.log(erro));
+    },
+    hideModal() {
+      this.$bvModal.hide("modal-login");
+      this.$bvModal.hide("modal-danger");
     },
     ModalEdit(usuarios) {
       this.conteudotable = {
@@ -210,8 +259,13 @@ export default {
       };
       this.$bvModal.show("modal-login");
     },
+    ModalConfirm(usuarios) {
+      this.conteudotable = {
+        ...usuarios,
+      };
+      this.$bvModal.show("modal-danger");
+    },
   },
-
   components: {
     Menu,
     ArrowLeftIcon,
@@ -227,6 +281,9 @@ export default {
   height: 100vh;
   width: 100vw;
   background-color: #110729;
+}
+.morei {
+  color: #110729;
 }
 .tabela {
   background-color: #dcdcdc;
@@ -312,5 +369,12 @@ export default {
   color: black;
   background-color: whitesmoke;
   border: solid 2px #07cbf5;
+}
+.custom-class {
+  width: 20%;
+  background-color: #110729;
+}
+.custom-class:hover {
+  background-color: #07cbf5;
 }
 </style>
