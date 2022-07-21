@@ -49,7 +49,10 @@ export default {
     };
   },
   methods: {
-    Login() {
+    Login() {  
+      if(this.usuario.email !== this.$store.state.usuario){
+
+      console.log(this.$store.state.usuario)
       this.$store
         .dispatch("Login", this.usuario)
         .then(() => {
@@ -71,6 +74,9 @@ export default {
             });
           }
         });
+        }else{
+          console.log("sai fora maluco")
+        }
     },
   },
   components: {

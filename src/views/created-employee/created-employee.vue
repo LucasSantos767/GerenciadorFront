@@ -84,6 +84,11 @@ export default {
               type: "error",
             });
           }
+          if (erro.request.status == 403) {
+            this.$toast(`Você não tem permissão.`, {
+              type: "error",
+            });
+          }
         });
     },
   },
