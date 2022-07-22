@@ -11,20 +11,21 @@ export default new Vuex.Store({
     role: null
   },
   getters: {
-    IsAdmin: (state) => state.role === 'admin'
+    IsAdmin: (state) => state.role === 'admin',
+    Nome: (state) => state.usuario
   },
   mutations: {
-    USUARIO_LOGADO(state, { token, usuario }) {
+    USUARIO_LOGADO(state, { token }) {
       state.token = token
-      state.usuario = usuario
     },
     DESLOGAR_USUARIO(state) {
       state.token = null
       state.usuario = null
       state.role = null
     },
-    SALVAR_ROLE(state, { role }) {
+    SALVAR_ROLE(state, { role, usuario }) {
       state.role = role
+      state.usuario = usuario
     }
   },
   actions: {
@@ -34,7 +35,6 @@ export default new Vuex.Store({
           .then(response => {
             commit('USUARIO_LOGADO', {
               token: response.data.access_token,
-              usuario: usuario.email,
               role: usuario.role
             })
             resolve(response.data)
@@ -49,7 +49,8 @@ export default new Vuex.Store({
       http.get(`search/${usuario.email}`)
         .then(response => {
           commit('SALVAR_ROLE', {
-            role: response.data.role
+            role: response.data.role,
+            usuario: response.data.name
           })
         })
     }

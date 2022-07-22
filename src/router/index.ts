@@ -41,7 +41,6 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((routeTo, routeFrom, next) => {
-  console.log(routeTo)
   let loginRequired = routeTo.matched.some((ruta) => ruta.meta.requireAuth);
   if (!loginRequired && !store.state.token) {
 

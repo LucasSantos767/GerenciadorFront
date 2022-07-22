@@ -20,7 +20,7 @@
         />
         <b-form-input
           v-model="search"
-          class="pesquisa h-75 w-25 input shadow-none"
+          class="pesquisa h-75 input shadow-none"
           placeholder="Pesquisar"
         />
       </div>
@@ -31,7 +31,6 @@
         bordered
         responsive
         hover
-        fixed
         class="tabela"
         :per-page="perPage"
         :current-page="currentPage"
@@ -84,8 +83,8 @@
         header-bg-variant="info"
         title="Editar Funcionário"
       >
-        <b-form @submit.prevent="Editar()">
-          <b-form-group class="pb-3 teste">
+        <b-form>
+          <b-form-group class="pb-3 InputPosition">
             <p class="sub">Nome</p>
             <b-input
               type="text"
@@ -93,7 +92,7 @@
               v-model="conteudotable.name"
             />
           </b-form-group>
-          <b-form-group class="pb-3 teste">
+          <b-form-group class="pb-3 InputPosition">
             <p class="sub">Email</p>
             <b-input
               type="email"
@@ -102,7 +101,7 @@
               v-model="conteudotable.email"
             />
           </b-form-group>
-          <b-form-group class="pb-3 teste">
+          <b-form-group class="pb-3 InputPosition">
             <p class="sub">Senha</p>
             <b-input
               type="password"
@@ -110,7 +109,7 @@
               v-model="conteudotable.password"
             />
           </b-form-group>
-          <b-form-group class="teste">
+          <b-form-group class="InputPosition">
             <p class="sub-title2">Cargo</p>
             <b-form-select
               class="inputEdit shadow-none"
@@ -120,18 +119,10 @@
             />
           </b-form-group>
           <div class="d-flex justify-content-between pt-2">
-            <b-button
-              v-ripple.400="'rgba(40, 199, 111, 0.15)'"
-              v-b-modal.modal-success
-              variant="outline-success"
-            >
+            <b-button @click.prevent="Editar()" variant="outline-success">
               Atualizar
             </b-button>
-            <b-button
-              v-ripple.400="'rgba(234, 84, 85, 0.15)'"
-            @click.prevent="hideModal()"
-            variant="outline-danger"
-            >
+            <b-button @click.prevent="hideModal()" variant="outline-danger">
               Cancelar
             </b-button>
           </div>
@@ -149,18 +140,10 @@
       >
         <b-card-text> Deseja excluir este usuário? </b-card-text>
         <div class="d-flex justify-content-between pt-2">
-          <b-button
-            v-ripple.400="'rgba(234, 84, 85, 0.15)'"
-            @click.prevent="Deletar()"
-            variant="outline-danger"
-          >
+          <b-button @click.prevent="Deletar()" variant="outline-danger">
             Excluir
           </b-button>
-          <b-button
-            v-ripple.400="'rgba(30, 30, 30, 0.15)'"
-            @click.prevent="hideModal()"
-            variant="outline-dark"
-          >
+          <b-button @click.prevent="hideModal()" variant="outline-dark">
             Cancelar
           </b-button>
         </div>
@@ -246,7 +229,12 @@ export default {
     Deletar() {
       this.$http
         .delete(`delete/${this.conteudotable._id}`)
-        .then((response) => console.log(response))
+         .then(() => {
+          this.$toast(`Usuário deletado com sucesso.`, {
+            type: "success",
+          });
+          this.$router.go(this.$router.currentRoute);
+        })
         .catch((erro) => console.log(erro));
     },
     hideModal() {
@@ -319,14 +307,10 @@ export default {
   padding-bottom: 10px;
 }
 .pesquisa {
+  width: 20%;
   margin-left: 57%;
 }
-.LoginTitle {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  padding-bottom: 20%;
-}
-.teste {
+.InputPosition {
   position: relative;
 }
 .sub {
@@ -376,5 +360,13 @@ export default {
 }
 .custom-class:hover {
   background-color: #07cbf5;
+}
+@media screen and (max-width: 800px) {
+  .input {
+    width: 100%;
+  }
+  .pesquisa {
+    margin-left: 15%;
+  }
 }
 </style>

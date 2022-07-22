@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <Menu />
-    <div class="aaa">
+    <div class="divTable">
       <div
         class="
           d-flex
@@ -20,7 +20,7 @@
         />
         <b-form-input
           v-model="search"
-          class="pesquisa h-75 w-25 input shadow-none"
+          class="pesquisa h-75 input shadow-none"
           placeholder="Pesquisar"
         />
       </div>
@@ -32,7 +32,6 @@
         bordered
         responsive
         hover
-        fixed
         :items="usuarios"
         :fields="filds"
         :per-page="perPage"
@@ -134,7 +133,7 @@ export default {
 .info {
   color: #110729;
 }
-.aaa {
+.divTable {
   width: 90%;
   margin-left: 4%;
   margin-top: 1%;
@@ -164,6 +163,15 @@ export default {
   padding-bottom: 10px;
 }
 .pesquisa{
+  width: 20%;
   margin-left: 57%;
+}
+@media screen and (max-width: 800px) {
+  .input{
+    width: 100%;
+  }
+  .pesquisa{
+    margin-left:15%;
+  }
 }
 </style>

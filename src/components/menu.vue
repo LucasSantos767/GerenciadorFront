@@ -1,13 +1,15 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <b-link class="navbar-brand a" :to="{name:'home'}"  > Gerenciador</b-link>
+      <b-link class="navbar-brand a" :to="{ name: 'home' }">
+        Gerenciador</b-link
+      >
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown right>
           <template #button-content>
-            <user-icon size="1.5x" class="custom-class"></user-icon>
+             {{ Nome }}
+            <user-icon size="1.5x" class="custom-class" />
           </template>
-          <b-dropdown-item class="p">Profile</b-dropdown-item>
           <b-dropdown-item @click="efetuarLogout">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
@@ -27,10 +29,21 @@ import {
   BNavItemDropdown,
   BNavForm,
 } from "bootstrap-vue";
+import { mapGetters} from 'vuex'
 export default {
+   computed: {
+    ...mapGetters(["Nome"]),
+  },
+  data() {
+    return {
+      user: {
+        name: this.$store.state.usuario,
+      },
+    };
+  },
   methods: {
     efetuarLogout() {
-      this.$store.commit('DESLOGAR_USUARIO')
+      this.$store.commit("DESLOGAR_USUARIO");
       this.$router.push({ name: "login" });
     },
   },
@@ -44,16 +57,16 @@ export default {
     BDropdownItem,
     BNavItemDropdown,
     BNavForm,
-    UserIcon
+    UserIcon,
   },
 };
 </script>
 <style scoped>
-.a {   
-    color: black;   
+.a {
+  color: black;
 }
 .a:hover {
-    color: blue;
+  color: blue;
 }
 .menucolor {
   background-color: whitesmoke;

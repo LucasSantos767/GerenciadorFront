@@ -3,7 +3,7 @@
     <div class="FormL d-flex align-items-center justify-content-center">
       <b-form @submit.prevent="Login">
         <h2 class="LoginTitle">LOGIN</h2>
-        <b-form-group class="pb-3 teste">
+        <b-form-group class="pb-3 inputPosition">
           <p class="sub">Email</p>
           <b-input
             type="email"
@@ -11,7 +11,7 @@
             v-model="usuario.email"
           />
         </b-form-group>
-        <b-form-group class="teste">
+        <b-form-group class="inputPosition">
           <p class="sub-title2">Senha</p>
           <b-input
             class="input shadow-none"
@@ -51,8 +51,6 @@ export default {
   methods: {
     Login() {  
       if(this.usuario.email !== this.$store.state.usuario){
-
-      console.log(this.$store.state.usuario)
       this.$store
         .dispatch("Login", this.usuario)
         .then(() => {
@@ -75,7 +73,9 @@ export default {
           }
         });
         }else{
-          console.log("sai fora maluco")
+         this.$toast(`Usuário já esta logado.`, {
+              type: "error",
+            });
         }
     },
   },
@@ -89,7 +89,7 @@ export default {
 };
 </script>
 <style scoped>
-.teste {
+.inputPosition {
   position: relative;
 }
 .LoginTitle {

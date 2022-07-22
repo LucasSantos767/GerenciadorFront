@@ -3,8 +3,8 @@
     <Menu />
     <div class="FormL d-flex align-items-center justify-content-center">
       <b-form @submit.prevent="Cadastro">
-        <h2 class="LoginTitle">Cadastro</h2>
-        <b-form-group class="pb-3 teste">
+        <h2 class="CadastroTitle">Cadastro</h2>
+        <b-form-group class="pb-3 inputPosition">
           <p class="sub">Nome</p>
           <b-input
             type="text"
@@ -12,7 +12,7 @@
             v-model="usuario.name"
           />
         </b-form-group>
-        <b-form-group class="pb-3 teste">
+        <b-form-group class="pb-3 inputPosition">
           <p class="sub">Email</p>
           <b-input
             type="email"
@@ -20,7 +20,7 @@
             v-model="usuario.email"
           />
         </b-form-group>
-        <b-form-group class="pb-3 teste">
+        <b-form-group class="pb-3 inputPosition">
           <p class="sub">Senha</p>
           <b-input
             type="password"
@@ -28,7 +28,7 @@
             v-model="usuario.password"
           />
         </b-form-group>
-        <b-form-group class="teste">
+        <b-form-group class="inputPosition">
           <p class="sub-title2">Cargo</p>
           <b-form-select
             class="input shadow-none"
@@ -103,10 +103,10 @@ export default {
   width: 100vw;
   background-color: #110729;
 }
-.teste {
+.inputPosition {
   position: relative;
 }
-.LoginTitle {
+.CadastroTitle {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding-bottom: 20%;
@@ -168,5 +168,11 @@ export default {
 }
 .custom-class:hover {
   background-color: #07cbf5;
+}
+@media screen and (max-width: 800px) {
+  .FormL{
+    width: 70%;
+    margin-left: 15%;
+  }
 }
 </style>
