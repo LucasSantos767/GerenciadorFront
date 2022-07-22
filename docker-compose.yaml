@@ -1,0 +1,19 @@
+version: '3.7'
+
+networks:
+  app-teste:
+    driver: bridge 
+
+services:
+  front:
+    build: .
+    entrypoint: sh ./.docker/entrypoint.sh
+    container_name: app-front
+    ports:
+      - 8080:8080
+    restart: always
+    tty: true
+    networks:
+      - app-teste
+    volumes:
+      - .:/home/front
