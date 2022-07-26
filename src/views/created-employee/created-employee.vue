@@ -46,6 +46,7 @@
 </template>
 <script>
 import Menu from "@/components/menu.vue";
+import { SocketModule } from "@/services/socket";
 export default {
   data() {
     return {
@@ -55,6 +56,7 @@ export default {
         password: "",
         role: "",
       },
+      socketService: SocketModule.connect(),
       selected: null,
       options: [
         { value: "user", text: "Usuário" },
@@ -62,15 +64,15 @@ export default {
       ],
     };
   },
+
   methods: {
-    Cadastro() {
+    async Cadastro() {
       this.$http
         .post("register", this.usuario)
         .then((response) => {
           this.$toast(`Usuários cadastrado com sucesso.`, {
             type: "success",
           });
-          this.$router.push({name:'funcionarios'})
           console.log(response);
         })
         .catch((erro) => {
@@ -170,7 +172,7 @@ export default {
   background-color: #07cbf5;
 }
 @media screen and (max-width: 800px) {
-  .FormL{
+  .FormL {
     width: 70%;
     margin-left: 15%;
   }

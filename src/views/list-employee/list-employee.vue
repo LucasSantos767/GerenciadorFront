@@ -73,10 +73,12 @@
 <script>
 import Menu from "@/components/menu.vue";
 import { ArrowLeftIcon, ArrowRightIcon } from "vue-feather-icons";
+import { SocketModule } from "@/services/socket";
 export default {
   data() {
     return {
       usuarios: [],
+      socketService: SocketModule.connect(),
       perPage: 5,
       currentPage: 1,
       pageOptions: [3, 5, 10],
@@ -105,12 +107,39 @@ export default {
       return this.usuarios.length;
     },
   },
-  mounted() {
-    this.$http
+  async mounted() {
+    await this.$http
       .get("list-all")
       .then((response) => (this.usuarios = response.data))
       .catch((erro) => console.log(erro))
       .finally(() => console.log(this.usuarios));
+    this.socketService.registerListener(
+      "update",
+      "update",
+      ({ email: string }) => {
+        this.$http
+          .get("list-all")
+          .then((response) => (this.usuarios = response.data));
+      }
+    );
+    this.socketService.registerListener(
+      "removed-user",
+      "removed-user",
+      ({ email: string }) => {
+        this.$http
+          .get("list-all")
+          .then((response) => (this.usuarios = response.data));
+      }
+    );
+    this.socketService.registerListener(
+      "new-user",
+      "new-user",
+      ({ email: string }) => {
+        this.$http
+          .get("list-all")
+          .then((response) => (this.usuarios = response.data));
+      }
+    );
   },
 
   components: {
@@ -162,16 +191,16 @@ export default {
   margin-left: 4%;
   padding-bottom: 10px;
 }
-.pesquisa{
+.pesquisa {
   width: 20%;
   margin-left: 57%;
 }
 @media screen and (max-width: 800px) {
-  .input{
+  .input {
     width: 100%;
   }
-  .pesquisa{
-    margin-left:15%;
+  .pesquisa {
+    margin-left: 15%;
   }
 }
 </style>

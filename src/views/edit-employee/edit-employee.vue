@@ -160,10 +160,12 @@ import {
   EditIcon,
   Trash2Icon,
 } from "vue-feather-icons";
+import { SocketModule } from "@/services/socket";
 export default {
   data() {
     return {
       usuarios: [],
+      socketService: SocketModule.connect(),
       perPage: 5,
       currentPage: 1,
       pageOptions: [3, 5, 10],
@@ -207,34 +209,57 @@ export default {
       return this.usuarios.length;
     },
   },
-  mounted() {
-    this.$http
-      .get("list-all")
-      .then((response) => (this.usuarios = response.data))
-      .catch((erro) => console.log(erro))
-      .finally(() => console.log(this.usuarios));
+  async mounted() {
+    await this.Lista();
+    this.socketService.registerListener(
+      "update",
+      "update",
+      ({ email: string }) => {
+        this.$toast(`Usuários atualizado com sucesso.`, {
+          type: "success",
+        });
+        this.usuarios = [];
+        this.Lista();
+      }
+    );
+    this.socketService.registerListener(
+      "removed-user",
+      "removed-user",
+      ({ email: string }) => {
+        this.$toast(`Usuários deletado com sucesso.`, {
+          type: "success",
+        });
+        this.usuarios = [];
+        this.Lista();
+      }
+    );
+     this.socketService.registerListener(
+      "new-user",
+      "new-user",
+      ({ email: string }) => {
+        this.usuarios = [];
+        this.Lista();
+      }
+    );
   },
   methods: {
+    async Lista() {
+      await this.$http
+        .get("list-all")
+        .then((response) => (this.usuarios = response.data))
+        .catch((erro) => console.log(erro))
+        .finally(() => console.log(this.usuarios));
+    },
     Editar() {
       this.$http
         .patch(`update/${this.conteudotable._id}`, this.conteudotable)
-        .then(() => {
-          this.$toast(`Usuários atualizado com sucesso.`, {
-            type: "success",
-          });
-          this.$router.go(this.$router.currentRoute);
-        })
+        .then(() => {})
         .catch((erro) => console.log(erro));
     },
     Deletar() {
       this.$http
         .delete(`delete/${this.conteudotable._id}`)
-         .then(() => {
-          this.$toast(`Usuário deletado com sucesso.`, {
-            type: "success",
-          });
-          this.$router.go(this.$router.currentRoute);
-        })
+        .then(() => {})
         .catch((erro) => console.log(erro));
     },
     hideModal() {
