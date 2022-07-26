@@ -1,23 +1,38 @@
+import store from '@/store'
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: "login",
+    component: () => import('../views/login/login.vue'),
+    meta: {
+      requireAuth: true
+    }
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
-  }
+    path: '/app/home',
+    name: 'home',
+    component: () => import('../views/home/home.vue')
+  },
+  {
+    path: '/app/funcionarios',
+    name: 'funcionarios',
+    component: () => import('../views/list-employee/list-employee.vue')
+  },
+  {
+    path: '/app/cadastro',
+    name: 'created-employee',
+    component: () => import('../views/created-employee/created-employee.vue')
+  },
+  {
+    path: '/app/editar-funcionarios',
+    name: 'edit-employee',
+    component: () => import('../views/edit-employee/edit-employee.vue')
+  },
 ]
 
 const router = new VueRouter({
@@ -25,5 +40,16 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+router.beforeEach((routeTo, routeFrom, next) => {
+  let loginRequired = routeTo.matched.some((ruta) => ruta.meta.requireAuth);
+  if (!loginRequired && !store.state.token) {
+
+    return routeTo.path == '/' ? next() : next({
+      path: '/'
+    });
+  }
+  next();
+})
+
 
 export default router
