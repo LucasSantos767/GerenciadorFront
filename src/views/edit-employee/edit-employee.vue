@@ -215,7 +215,7 @@ export default {
       "update",
       "update",
       ({ email: string }) => {
-        this.$toast(`Usuários atualizado com sucesso.`, {
+        this.$toast(`Usuário atualizado com sucesso.`, {
           type: "success",
         });
         this.usuarios = [];
@@ -226,7 +226,7 @@ export default {
       "removed-user",
       "removed-user",
       ({ email: string }) => {
-        this.$toast(`Usuários deletado com sucesso.`, {
+        this.$toast(`Usuário deletado com sucesso.`, {
           type: "success",
         });
         this.usuarios = [];
@@ -248,7 +248,7 @@ export default {
         .get("list-all")
         .then((response) => (this.usuarios = response.data))
         .catch((erro) => console.log(erro))
-        .finally(() => console.log(this.usuarios));
+        .finally(() => {});
     },
     Editar() {
       this.$http

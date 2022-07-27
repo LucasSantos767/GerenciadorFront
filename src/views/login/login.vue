@@ -39,6 +39,8 @@
 <script>
 import { ArrowRightIcon } from "vue-feather-icons";
 import { BForm, BFormGroup, BButton, BCardSubTitle } from "bootstrap-vue";
+import { SocketModule } from "@/services/socket";
+
 export default {
   data() {
     return {
@@ -46,37 +48,38 @@ export default {
         email: "",
         password: "",
       },
+      socketService: SocketModule.connect(),
     };
   },
   methods: {
-    Login() {  
-      if(this.usuario.email !== this.$store.state.usuario){
-      this.$store
-        .dispatch("Login", this.usuario)
-        .then(() => {
-          this.$router.push({ name: "home" });
-          this.$toast(`Login efetuado com sucesso`, {
-            type: "success",
+    Login() {
+      if (this.usuario.email !== this.$store.state.email) {
+        this.$store
+          .dispatch("Login", this.usuario)
+          .then(() => {
+            this.$router.push({ name: "home" });
+            this.$toast(`Login efetuado com sucesso`, {
+              type: "success",
+            });
+            this.$store.dispatch("Role", this.usuario);
+          })
+          .catch((erro) => {
+            if (erro.request.status == 400) {
+              this.$toast(`Email e senha precisam ser preenchidos.`, {
+                type: "info",
+              });
+            }
+            if (erro.request.status == 401) {
+              this.$toast(`Email ou senha inválidos.`, {
+                type: "error",
+              });
+            }
           });
-        this.$store.dispatch("Role",this.usuario)
-        })
-        .catch((erro) => {
-          if (erro.request.status == 400) {
-            this.$toast(`Email e senha precisam ser preenchidos.`, {
-              type: "info",
-            });
-          }
-          if (erro.request.status == 401) {
-            this.$toast(`Email ou senha inválidos.`, {
-              type: "error",
-            });
-          }
+      } else {
+        this.$toast(`Usuário já esta logado.`, {
+          type: "error",
         });
-        }else{
-         this.$toast(`Usuário já esta logado.`, {
-              type: "error",
-            });
-        }
+      }
     },
   },
   components: {

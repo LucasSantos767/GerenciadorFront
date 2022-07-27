@@ -8,11 +8,13 @@ export default new Vuex.Store({
   state: {
     token: null,
     usuario: null,
-    role: null
+    role: null,
+    email:null
   },
   getters: {
     IsAdmin: (state) => state.role === 'admin',
-    Nome: (state) => state.usuario
+    Nome: (state) => state.usuario,
+    Email: (state)=> state.email
   },
   mutations: {
     USUARIO_LOGADO(state, { token }) {
@@ -22,10 +24,12 @@ export default new Vuex.Store({
       state.token = null
       state.usuario = null
       state.role = null
+      state.email = null
     },
-    SALVAR_ROLE(state, { role, usuario }) {
+    SALVAR_ROLE(state, { role, usuario,email }) {
       state.role = role
       state.usuario = usuario
+      state.email = email
     }
   },
   actions: {
@@ -40,7 +44,6 @@ export default new Vuex.Store({
             resolve(response.data)
           })
           .catch(erro => {
-            console.log(erro)
             reject(erro)
           })
       })
@@ -50,7 +53,8 @@ export default new Vuex.Store({
         .then(response => {
           commit('SALVAR_ROLE', {
             role: response.data.role,
-            usuario: response.data.name
+            usuario: response.data.name,
+            email: response.data.email
           })
         })
     }
