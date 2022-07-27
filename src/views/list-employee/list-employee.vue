@@ -112,7 +112,7 @@ export default {
       .get("list-all")
       .then((response) => (this.usuarios = response.data))
       .catch((erro) => console.log(erro))
-      .finally(() => console.log(this.usuarios));
+      .finally(() => {});
     this.socketService.registerListener(
       "update",
       "update",

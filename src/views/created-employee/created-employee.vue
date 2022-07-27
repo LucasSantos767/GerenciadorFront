@@ -70,19 +70,18 @@ export default {
       this.$http
         .post("register", this.usuario)
         .then((response) => {
-          this.$toast(`Usuários cadastrado com sucesso.`, {
+          this.$toast(`Usuário cadastrado com sucesso.`, {
             type: "success",
           });
-          console.log(response);
         })
         .catch((erro) => {
           if (erro.request.status == 400) {
-            this.$toast(`Email e senha precisam ser preenchidos.`, {
+            this.$toast(`Dados precisam ser preenchidos.`, {
               type: "info",
             });
           }
-          if (erro.request.status == 401) {
-            this.$toast(`Email ou senha inválidos.`, {
+          if (erro.request.status == 500) {
+            this.$toast(`Email já cadastrado.`, {
               type: "error",
             });
           }

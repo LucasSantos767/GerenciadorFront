@@ -19,7 +19,7 @@ export class SocketModule {
   }
   
   private registerDefaultListeners() {
-    console.log(this.io)
+
   }
 
   public registerListener(
