@@ -218,6 +218,7 @@ export default {
         this.$toast(`Usuário atualizado com sucesso.`, {
           type: "success",
         });
+        this.$bvModal.hide("modal-login");
         this.usuarios = [];
         this.Lista();
       }
@@ -229,6 +230,7 @@ export default {
         this.$toast(`Usuário deletado com sucesso.`, {
           type: "success",
         });
+         this.$bvModal.hide("modal-danger");
         this.usuarios = [];
         this.Lista();
       }
