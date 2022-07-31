@@ -107,7 +107,7 @@ export default {
   color: #110729;
   font-size: 14px;
   left: 7%;
-  top: -13%;
+  top: -16%;
   background-color: whitesmoke;
   position: absolute;
 }

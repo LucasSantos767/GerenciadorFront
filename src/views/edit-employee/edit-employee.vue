@@ -39,7 +39,7 @@
         :filter="search"
       >
         <template v-slot:cell(actions)="data">
-          <b-dropdown variant="link" no-caret>
+          <b-dropdown variant="link" no-caret class="iconp">
             <template #button-content>
               <more-vertical-icon size="1x" class="morei" />
             </template>
@@ -387,6 +387,10 @@ export default {
 }
 .custom-class:hover {
   background-color: #07cbf5;
+}
+.iconp{
+  margin-top: -15px;
+  margin-bottom: -15px;
 }
 @media screen and (max-width: 800px) {
   .input {
