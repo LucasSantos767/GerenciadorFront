@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     func() {
-      this.$router.push({ name: "funcionarios" });
+      this.$router.push({ name: "employees" });
     },
     created() {
       this.$router.push({ name: "created-employee" });
