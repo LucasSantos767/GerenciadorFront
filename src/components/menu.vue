@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <b-link class="navbar-brand a" :to="{ name: 'home' }">
+      <b-link class="navbar-brand colonav" :to="{ name: 'home' }">
         Gerenciador</b-link
       >
       <b-navbar-nav class="ml-auto">
@@ -62,10 +62,10 @@ export default {
 };
 </script>
 <style scoped>
-.a {
+.colonav {
   color: black;
 }
-.a:hover {
+.colonav:hover {
   color: blue;
 }
 .menucolor {
@@ -75,8 +75,5 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
-}
-.aa {
-  width: 100vw;
 }
 </style>

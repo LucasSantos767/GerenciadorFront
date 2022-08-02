@@ -48,7 +48,6 @@ export default {
         email: "",
         password: "",
       },
-      socketService: SocketModule.connect(),
     };
   },
   methods: {

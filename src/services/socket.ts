@@ -9,7 +9,6 @@ export class SocketModule {
   
   constructor(uri: string) {
     this.io = io(uri);
-    this.registerDefaultListeners();
   }
   
   public static connect() {
@@ -18,10 +17,6 @@ export class SocketModule {
     return SocketModule.instance;
   }
   
-  private registerDefaultListeners() {
-
-  }
-
   public registerListener(
     namespace: string,
     event: string,

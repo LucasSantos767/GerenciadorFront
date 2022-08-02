@@ -19,17 +19,17 @@ const routes: Array<RouteConfig> = [
     component: () => import('../views/home/home.vue')
   },
   {
-    path: '/app/funcionarios',
-    name: 'funcionarios',
+    path: '/app/list-employee',
+    name: 'employees',
     component: () => import('../views/list-employee/list-employee.vue')
   },
   {
-    path: '/app/cadastro',
+    path: '/app/created-employee',
     name: 'created-employee',
     component: () => import('../views/created-employee/created-employee.vue')
   },
   {
-    path: '/app/editar-funcionarios',
+    path: '/app/edit-employee',
     name: 'edit-employee',
     component: () => import('../views/edit-employee/edit-employee.vue')
   },

@@ -86,17 +86,17 @@ export default {
       filds: [
         {
           key: "name",
-          label: "Nome",
+          label: "NOME",
           thClass: "text-center",
         },
         {
           key: "email",
-          label: "Email",
+          label: "EMAIL",
           thClass: "text-center",
         },
         {
           key: "role",
-          label: "Cargo",
+          label: "CARGO",
           thClass: "text-center",
         },
       ],
