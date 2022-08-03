@@ -2,16 +2,18 @@
   <div class="main">
     <Menu />
     <div class="HomeCab">
-      <h2 class="title">Bem Vindo ao Gerenciador</h2>
+      <h2 class="title">Bem Vindo {{ Nome }}, ao Gerenciador</h2>
       <img class="HomeImg" src="../../assets/Group275.png" />
     </div>
     <b-row class="d-flex align-items-center justify-content-center conteudo">
-      <b-col class="pt-5">
-        <b-card tag="article" type="button" @click="func">
-          <users-icon size="2x" class="custom-class"></users-icon>
-          <b-card-text> Funcionários </b-card-text>
-        </b-card>
-      </b-col>
+      <div class="widhtdiv">
+        <b-col class="pt-5">
+          <b-card tag="article" type="button" @click="func">
+            <users-icon size="2x" class="custom-class"></users-icon>
+            <b-card-text> Funcionários </b-card-text>
+          </b-card>
+        </b-col>
+      </div>
       <b-col class="pt-5" v-if="IsAdmin">
         <b-card class="button" tag="article" type="button" @click="created">
           <user-plus-icon size="2x" class="custom-class"></user-plus-icon>
@@ -19,7 +21,7 @@
         </b-card>
       </b-col>
       <b-col class="pt-5" v-if="IsAdmin">
-        <b-card tag="article" type="button"  @click="edit">
+        <b-card tag="article" type="button" @click="edit">
           <settings-icon size="2x" class="custom-class"></settings-icon>
           <b-card-text> Editar Funcionários </b-card-text>
         </b-card>
@@ -29,14 +31,12 @@
 </template>
 <script>
 import { UsersIcon, UserPlusIcon, SettingsIcon } from "vue-feather-icons";
-import { mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 import Menu from "@/components/menu.vue";
 
 export default {
-  computed:{
-    ...mapGetters(
-     ['IsAdmin']
-    )
+  computed: {
+    ...mapGetters(["IsAdmin", "Nome"]),
   },
   methods: {
     func() {
@@ -68,14 +68,23 @@ export default {
   margin-left: 20%;
 }
 .HomeImg {
-  width: 16vw;
+  width: 19vw;
 }
 .HomeCab {
-  margin-top: 6%;
+  margin-top: 4%;
 }
 .title {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: whitesmoke;
+}
+.widhtdiv {
+  width: 20vw !important;
+}
+@media screen and (max-width: 800px) {
+  .widhtdiv {
+    width: 100% !important;
+  }
+  .HomeImg {
+    width: 30vw;
+  }
 }
 </style>

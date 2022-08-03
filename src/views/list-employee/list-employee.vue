@@ -82,6 +82,7 @@ export default {
       perPage: 5,
       currentPage: 1,
       pageOptions: [3, 5, 10],
+      roleOptions: ["admin"],
       search: null,
       filds: [
         {
@@ -111,7 +112,14 @@ export default {
     await this.$http
       .get("list-all")
       .then((response) => (this.usuarios = response.data))
-      .catch((erro) => console.log(erro))
+      .catch((erro) => {
+        if (erro.request.status == 401) {
+          this.$store.commit("DESLOGAR_USUARIO");
+          this.$toast(`token expirado.`, {
+            type: "info",
+          });
+        }
+      })
       .finally(() => {});
     this.socketService.registerListener(
       "update",
@@ -183,8 +191,6 @@ export default {
 .listagem {
   margin-top: 10px;
   padding-right: 6px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
 }
 .infoTable {

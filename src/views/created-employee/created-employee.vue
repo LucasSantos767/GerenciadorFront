@@ -8,6 +8,7 @@
           <p class="sub">Nome</p>
           <b-input
             type="text"
+            placeholder="exemple: Sávio"
             class="input shadow-none"
             v-model="usuario.name"
           />
@@ -16,6 +17,7 @@
           <p class="sub">Email</p>
           <b-input
             type="email"
+            placeholder="exemple: Sávio@gmail.com"
             class="input shadow-none"
             v-model="usuario.email"
           />
@@ -24,6 +26,7 @@
           <p class="sub">Senha</p>
           <b-input
             type="password"
+            placeholder="exemple: sávio123@"
             class="input shadow-none"
             v-model="usuario.password"
           />
@@ -90,6 +93,12 @@ export default {
               type: "error",
             });
           }
+          if (erro.request.status == 401) {
+            this.$store.commit("DESLOGAR_USUARIO");
+            this.$toast(`Token expirado.`, {
+              type: "error",
+            });
+          }
         });
     },
   },
@@ -108,14 +117,10 @@ export default {
   position: relative;
 }
 .CadastroTitle {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding-bottom: 20%;
 }
 .sub {
   width: 43px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
   font-size: 14px;
   left: 7%;
@@ -125,8 +130,6 @@ export default {
 }
 .sub-title2 {
   width: 44px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
   font-size: 14px;
   left: 7%;

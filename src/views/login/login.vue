@@ -7,6 +7,7 @@
           <p class="sub">Email</p>
           <b-input
             type="email"
+            placeholder="exemple: admin@gmail.com"
             class="input shadow-none"
             v-model="usuario.email"
           />
@@ -16,6 +17,7 @@
           <b-input
             class="input shadow-none"
             type="password"
+            placeholder="exemple: senha123@"
             v-model="usuario.password"
           />
         </b-form-group>
@@ -39,7 +41,6 @@
 <script>
 import { ArrowRightIcon } from "vue-feather-icons";
 import { BForm, BFormGroup, BButton, BCardSubTitle } from "bootstrap-vue";
-import { SocketModule } from "@/services/socket";
 
 export default {
   data() {
@@ -95,14 +96,10 @@ export default {
   position: relative;
 }
 .LoginTitle {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   padding-bottom: 43%;
 }
 .sub {
   width: 43px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
   font-size: 14px;
   left: 7%;
@@ -112,12 +109,10 @@ export default {
 }
 .sub-title2 {
   width: 44px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
   font-size: 14px;
   left: 7%;
-  top: -18%;
+  top: -20%;
   background-color: whitesmoke;
   position: absolute;
 }
@@ -167,6 +162,7 @@ export default {
   color: #110729;
   padding-top: 30%;
   left: 3.4%;
+  font-size: 15px;
 }
 @media screen and (max-width: 800px) {
   .sub,
