@@ -230,12 +230,12 @@ export default {
         this.$toast(`Usuário deletado com sucesso.`, {
           type: "success",
         });
-         this.$bvModal.hide("modal-danger");
+        this.$bvModal.hide("modal-danger");
         this.usuarios = [];
         this.Lista();
       }
     );
-     this.socketService.registerListener(
+    this.socketService.registerListener(
       "new-user",
       "new-user",
       ({ email: string }) => {
@@ -249,14 +249,27 @@ export default {
       await this.$http
         .get("list-all")
         .then((response) => (this.usuarios = response.data))
-        .catch((erro) => console.log(erro))
+        .catch((erro) => {
+          if (erro.request.status == 401) {
+            this.$store.commit("DESLOGAR_USUARIO");
+            this.$toast(`token expirado.`, {
+              type: "info",
+            });
+          }
+        })
         .finally(() => {});
     },
     Editar() {
       this.$http
         .patch(`update/${this.conteudotable._id}`, this.conteudotable)
         .then(() => {})
-        .catch((erro) => console.log(erro));
+        .catch((erro) => {
+          if (erro.request.status == 500) {
+            this.$toast(`falta dados na requisição.`, {
+              type: "info",
+            });
+          }
+        });
     },
     Deletar() {
       this.$http
@@ -271,6 +284,7 @@ export default {
     ModalEdit(usuarios) {
       this.conteudotable = {
         ...usuarios,
+        password: undefined,
       };
       this.$bvModal.show("modal-login");
     },
@@ -325,8 +339,6 @@ export default {
 .listagem {
   margin-top: 10px;
   padding-right: 6px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
 }
 .infoTable {
@@ -343,8 +355,6 @@ export default {
 .sub {
   width: 44px;
   height: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
   font-size: 14px;
   left: 7%;
@@ -355,8 +365,6 @@ export default {
 .sub-title2 {
   width: 44px;
   height: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   color: #110729;
   font-size: 14px;
   left: 7%;
@@ -388,7 +396,7 @@ export default {
 .custom-class:hover {
   background-color: #07cbf5;
 }
-.iconp{
+.iconp {
   margin-top: -15px;
   margin-bottom: -15px;
 }
