@@ -88,7 +88,6 @@ export default {
       perPage: 5,
       currentPage: 1,
       pageOptions: [3, 5, 10],
-      roleOptions: ["admin"],
       search: null,
       filds: [
         {

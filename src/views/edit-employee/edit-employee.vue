@@ -264,9 +264,7 @@ export default {
         .finally(() => {});
     },
     Editar() {
-      this.$http
-        .patch(`update/${this.conteudotable._id}`, this.conteudotable)
-        .then(() => {})
+      this.$store.dispatch('Editar',this.conteudotable)
         .catch((erro) => {
           if (erro.request.status == 500) {
             this.$toast(`falta dados na requisição.`, {
@@ -276,9 +274,7 @@ export default {
         });
     },
     Deletar() {
-      this.$http
-        .delete(`delete/${this.conteudotable._id}`)
-        .then(() => {})
+      this.$store.dispatch('Deletar',this.conteudotable)
         .catch((erro) => console.log(erro));
     },
     hideModal() {
