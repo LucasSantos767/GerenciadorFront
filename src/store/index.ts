@@ -57,6 +57,14 @@ export default new Vuex.Store({
             email: response.data.email
           })
         })
+    },
+    Editar({ commit },conteudotable){
+      http.patch(`update/${conteudotable._id}`,conteudotable)
+      .then(() => {})
+    },
+    Deletar({ commit },conteudotable){
+      http.delete(`delete/${conteudotable._id}`)
+      .then(() => {})
     }
   },
   modules: {
