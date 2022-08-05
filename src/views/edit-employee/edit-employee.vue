@@ -11,12 +11,12 @@
           infoTable
         "
       >
-        <p class="listagem">Lista de Usuários</p>
+        <p class="listagem"><users-icon size="1.5x" /> Lista de Usuários</p>
         <b-form-select
           v-model="perPage"
           :options="pageOptions"
           :clearable="false"
-          class="per-page-selector d-inline-block mx-50 input"
+          class="per-page-selector d-inline-block mx-50 input inputselect"
         />
         <b-form-input
           v-model="search"
@@ -25,6 +25,7 @@
         />
       </div>
       <b-table
+        show-empty
         outlined
         striped
         borderless
@@ -37,6 +38,8 @@
         :items="usuarios"
         :fields="fields"
         :filter="search"
+        empty-text="Nenhum dado encontrado."
+        empty-filtered-text="Nenhum dado encontrado."
       >
         <template v-slot:cell(actions)="data">
           <b-dropdown variant="link" no-caret class="iconp">
@@ -80,7 +83,7 @@
         hide-footer
         hide-header-close
         header-text-variant="light"
-        header-bg-variant="info"
+        header-bg-variant="dark"
         title="Editar Funcionário"
       >
         <b-form>
@@ -161,6 +164,7 @@ import {
   Trash2Icon,
 } from "vue-feather-icons";
 import { SocketModule } from "@/services/socket";
+import { UsersIcon } from "vue-feather-icons";
 export default {
   data() {
     return {
@@ -179,7 +183,7 @@ export default {
         {
           key: "_id",
           label: "ID",
-          thClass: "text-center",
+          Class: "text-center",
         },
         {
           key: "name",
@@ -302,6 +306,7 @@ export default {
     MoreVerticalIcon,
     EditIcon,
     Trash2Icon,
+    UsersIcon,
   },
 };
 </script>
@@ -404,8 +409,12 @@ export default {
   .input {
     width: 100%;
   }
+  .inputselect{
+    width: 30%;
+  }
   .pesquisa {
-    margin-left: 15%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 </style>

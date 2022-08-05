@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <b-link class="navbar-brand colonav" :to="{ name: 'home' }">
+      <b-link class="navbar-brand colonav" :to="{ name: 'home' }" title="Voltar a tela ínicial">
         Gerenciador</b-link
       >
       <b-navbar-nav class="ml-auto">
@@ -10,14 +10,14 @@
              {{ Nome }}
             <user-icon size="1.5x" class="custom-class" />
           </template>
-          <b-dropdown-item @click="efetuarLogout">Sign Out</b-dropdown-item>
+          <b-dropdown-item @click="efetuarLogout"><log-out-icon size="1.5x" class="custom-class"/>Sair</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </div>
   </nav>
 </template>
 <script>
-import { UserIcon } from "vue-feather-icons";
+import { UserIcon,LogOutIcon } from "vue-feather-icons";
 import {
   BNavbar,
   BNavbarBrand,
@@ -58,6 +58,7 @@ export default {
     BNavItemDropdown,
     BNavForm,
     UserIcon,
+    LogOutIcon
   },
 };
 </script>

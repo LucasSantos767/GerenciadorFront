@@ -23,13 +23,25 @@
           />
         </b-form-group>
         <b-form-group class="pb-3 inputPosition">
-          <p class="sub">Senha</p>
+          <p class="sub-title2">Senha</p>
           <b-input
-            type="password"
-            placeholder="exemple: sávio123@"
+            v-if="showPassword"
             class="input shadow-none"
+            type="text"
+            placeholder="exemple: senha123@"
             v-model="usuario.password"
           />
+          <b-input
+            v-else
+            class="input shadow-none"
+            type="password"
+            placeholder="exemple: senha123@"
+            v-model="usuario.password"
+          />
+          <i type="button" @click="toggleShow">
+            <eye-off-icon size="1.5x" v-if="showPassword" />
+            <eye-icon size="1.5x" v-else />
+          </i>
         </b-form-group>
         <b-form-group class="inputPosition">
           <p class="sub-title2">Cargo</p>
@@ -40,9 +52,9 @@
             v-model="usuario.role"
           />
         </b-form-group>
-        <div class="btn pt-4">
+
           <b-button type="submit" class="custom-class">Criar</b-button>
-        </div>
+        
       </b-form>
     </div>
   </div>
@@ -50,25 +62,30 @@
 <script>
 import Menu from "@/components/menu.vue";
 import { SocketModule } from "@/services/socket";
+import { EyeIcon, EyeOffIcon } from "vue-feather-icons";
 export default {
   data() {
     return {
+      showPassword: false,
       usuario: {
         name: "",
         email: "",
         password: "",
-        role: "",
+        role: null,
       },
       socketService: SocketModule.connect(),
       selected: null,
       options: [
+        { value: null, text: "-- Selecione um cargo --", disabled: true },
         { value: "user", text: "Usuário" },
         { value: "admin", text: "Admin" },
       ],
     };
   },
-
   methods: {
+    toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
     async Cadastro() {
       this.$http
         .post("register", this.usuario)
@@ -76,6 +93,8 @@ export default {
           this.$toast(`Usuário cadastrado com sucesso.`, {
             type: "success",
           });
+          this.usuario = "";
+          this.usuario.password = null
         })
         .catch((erro) => {
           if (erro.request.status == 400) {
@@ -104,10 +123,19 @@ export default {
   },
   components: {
     Menu,
+    EyeIcon,
+    EyeOffIcon,
   },
 };
 </script>
 <style scoped>
+i {
+  position: absolute;
+  margin-top: -25%;
+  right: 4%;
+  color: #110729;
+  background-color: whitesmoke;
+}
 .main {
   height: 100vh;
   width: 100vw;
@@ -163,11 +191,9 @@ export default {
   background-color: whitesmoke;
   border: solid 2px #07cbf5;
 }
-.btn {
-  width: 100%;
-}
 .custom-class {
   width: 100%;
+  margin-top: 4%;
   background-color: #110729;
 }
 .custom-class:hover {

@@ -15,11 +15,23 @@
         <b-form-group class="inputPosition">
           <p class="sub-title2">Senha</p>
           <b-input
+            v-if="showPassword"
+            class="input shadow-none"
+            type="text"
+            placeholder="exemple: senha123@"
+            v-model="usuario.password"
+          />
+          <b-input
+            v-else
             class="input shadow-none"
             type="password"
             placeholder="exemple: senha123@"
             v-model="usuario.password"
           />
+          <i type="button" @click="toggleShow">
+            <eye-off-icon size="1.5x" v-if="showPassword" />
+            <eye-icon size="1.5x" v-else />
+          </i>
         </b-form-group>
         <div class="btn pt-4">
           <b-button type="submit" class="custom-class"
@@ -41,10 +53,12 @@
 <script>
 import { ArrowRightIcon } from "vue-feather-icons";
 import { BForm, BFormGroup, BButton, BCardSubTitle } from "bootstrap-vue";
+import { EyeIcon, EyeOffIcon } from "vue-feather-icons";
 
 export default {
   data() {
     return {
+      showPassword: false,
       usuario: {
         email: "",
         password: "",
@@ -52,6 +66,9 @@ export default {
     };
   },
   methods: {
+    toggleShow() {
+      this.showPassword = !this.showPassword;
+    },
     Login() {
       if (this.usuario.email !== this.$store.state.email) {
         this.$store
@@ -88,15 +105,24 @@ export default {
     BFormGroup,
     BButton,
     BCardSubTitle,
+    EyeIcon,
+    EyeOffIcon,
   },
 };
 </script>
 <style scoped>
+i {
+  position: absolute;
+  margin-top: -17%;
+  right: 4%;
+  color: #110729;
+  background-color: whitesmoke;
+}
 .inputPosition {
   position: relative;
 }
 .LoginTitle {
-  padding-bottom: 43%;
+  padding-bottom: 27%;
 }
 .sub {
   width: 43px;

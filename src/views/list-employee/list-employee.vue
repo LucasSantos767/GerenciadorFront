@@ -11,12 +11,14 @@
           infoTable
         "
       >
-        <p class="listagem">Lista de Usuários</p>
+        <p class="listagem">
+          <users-icon size="1.5x" class="custom-class" /> Lista de Usuários
+        </p>
         <b-form-select
           v-model="perPage"
           :options="pageOptions"
           :clearable="false"
-          class="per-page-selector d-inline-block mx-50 input"
+          class="per-page-selector d-inline-block mx-50 input inputselect"
         />
         <b-form-input
           v-model="search"
@@ -25,6 +27,7 @@
         />
       </div>
       <b-table
+        show-empty
         class="tabela"
         outlined
         striped
@@ -37,6 +40,8 @@
         :per-page="perPage"
         :current-page="currentPage"
         :filter="search"
+        empty-text="Nenhum dado encontrado."
+        empty-filtered-text="Nenhum dado encontrado."
       >
         <template #cell(name)="data">
           <b-card-text class="info">{{ data.value }}</b-card-text>
@@ -74,6 +79,7 @@
 import Menu from "@/components/menu.vue";
 import { ArrowLeftIcon, ArrowRightIcon } from "vue-feather-icons";
 import { SocketModule } from "@/services/socket";
+import { UsersIcon } from "vue-feather-icons";
 export default {
   data() {
     return {
@@ -108,19 +114,10 @@ export default {
       return this.usuarios.length;
     },
   },
-  async mounted() {
-    await this.$http
-      .get("list-all")
-      .then((response) => (this.usuarios = response.data))
-      .catch((erro) => {
-        if (erro.request.status == 401) {
-          this.$store.commit("DESLOGAR_USUARIO");
-          this.$toast(`token expirado.`, {
-            type: "info",
-          });
-        }
-      })
-      .finally(() => {});
+  created() {
+    this.Lista();
+  },
+  updated() {
     this.socketService.registerListener(
       "update",
       "update",
@@ -149,11 +146,27 @@ export default {
       }
     );
   },
-
+  methods: {
+    async Lista() {
+      await this.$http
+        .get("list-all")
+        .then((response) => (this.usuarios = response.data))
+        .catch((erro) => {
+          if (erro.request.status == 401) {
+            this.$store.commit("DESLOGAR_USUARIO");
+            this.$toast(`token expirado.`, {
+              type: "info",
+            });
+          }
+        })
+        .finally(() => {});
+    },
+  },
   components: {
     Menu,
     ArrowLeftIcon,
     ArrowRightIcon,
+    UsersIcon,
   },
 };
 </script>
@@ -205,8 +218,12 @@ export default {
   .input {
     width: 100%;
   }
+  .inputselect{
+    width: 30%;
+  }
   .pesquisa {
-    margin-left: 15%;
+    margin-left: 5%;
+    margin-right: 5%;
   }
 }
 </style>
