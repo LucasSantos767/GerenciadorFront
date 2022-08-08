@@ -29,8 +29,8 @@
             v-model="usuario.password"
           />
           <i type="button" @click="toggleShow">
-            <eye-off-icon size="1.5x" v-if="showPassword" />
-            <eye-icon size="1.5x" v-else />
+            <eye-icon size="1.5x" v-if="showPassword" />
+            <eye-off-icon size="1.5x" v-else />
           </i>
         </b-form-group>
         <div class="btn pt-4">
@@ -114,9 +114,10 @@ export default {
 i {
   position: absolute;
   margin-top: -17%;
-  right: 4%;
+  right: 2%;
   color: #110729;
   background-color: whitesmoke;
+  width: 12%;
 }
 .inputPosition {
   position: relative;
