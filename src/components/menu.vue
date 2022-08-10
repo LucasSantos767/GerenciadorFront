@@ -9,11 +9,11 @@
         Gerenciador</b-link
       >
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right class="teste">
+        <b-nav-item-dropdown right class="height-info">
           <template #button-content>
-            <div class="aaa text-capitalize">
+            <div class="div-info text-capitalize">
               {{ Nome }}
-              <p class="aa">{{ Role }}</p>
+              <p class="cargo">{{ Role }}</p>
             </div>
             <user-icon size="1.7x" class="custom-class" />
           </template>
@@ -87,18 +87,18 @@ export default {
 .p {
   font-size: 14px;
 }
-.aaa {
+.div-info {
   position: relative;
   top: 16px;
   font-size: 18px;
   right: 100%;
 }
-.aa {
+.cargo {
   position: absolute;
   font-size: 12px;
   right: 3px;
 }
-.teste{
+.height-info{
   top: -21px;
   height: 50px;
 }
