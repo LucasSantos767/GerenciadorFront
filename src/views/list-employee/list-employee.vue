@@ -12,7 +12,7 @@
         "
       >
         <p class="listagem">
-          <users-icon size="1.5x" class="custom-class" /> Lista de Usuários
+          <users-icon size="1.5x" class="custom-class icon-users" /> Lista de Usuários
         </p>
         <b-form-select
           v-model="perPage"
@@ -213,11 +213,19 @@ export default {
   width: 20%;
   margin-left: 57%;
 }
+.inputselect {
+  height: 27px;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
+}
+.icon-users{
+  margin-right: 5px;
+}
 @media screen and (max-width: 800px) {
   .input {
     width: 100%;
   }
-  .inputselect{
+  .inputselect {
     width: 30%;
   }
   .pesquisa {

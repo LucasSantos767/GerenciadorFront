@@ -11,7 +11,7 @@
           infoTable
         "
       >
-        <p class="listagem"><users-icon size="1.5x" /> Lista de Usuários</p>
+        <p class="listagem"><users-icon size="1.5x" class="icon-users"/> Lista de Usuários</p>
         <b-form-select
           v-model="perPage"
           :options="pageOptions"
@@ -400,6 +400,14 @@ export default {
 .iconp {
   margin-top: -15px;
   margin-bottom: -15px;
+}
+.inputselect {
+  height: 27px;
+  margin-left: 0.5%;
+  margin-top: 0.5%;
+}
+.icon-users{
+  margin-right: 5px;
 }
 @media screen and (max-width: 800px) {
   .input {

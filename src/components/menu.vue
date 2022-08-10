@@ -1,23 +1,35 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <b-link class="navbar-brand colonav" :to="{ name: 'home' }" title="Voltar a tela ínicial">
+      <b-link
+        class="navbar-brand colonav"
+        :to="{ name: 'home' }"
+        title="Voltar a tela ínicial"
+      >
         Gerenciador</b-link
       >
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right>
+        <b-nav-item-dropdown right class="teste">
           <template #button-content>
-             {{ Nome }}
+            <div class="aaa text-capitalize">
+              {{ Nome }}
+              <p class="aa">{{ Role }}</p>
+            </div>
             <user-icon size="1.5x" class="custom-class" />
           </template>
-          <b-dropdown-item @click="efetuarLogout"><log-out-icon size="1.5x" class="custom-class"/>Sair</b-dropdown-item>
+          <b-dropdown-item @click="efetuarLogout"
+            ><log-out-icon
+              size="1.5x"
+              class="custom-class"
+            />Sair</b-dropdown-item
+          >
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </div>
   </nav>
 </template>
 <script>
-import { UserIcon,LogOutIcon } from "vue-feather-icons";
+import { UserIcon, LogOutIcon } from "vue-feather-icons";
 import {
   BNavbar,
   BNavbarBrand,
@@ -29,10 +41,10 @@ import {
   BNavItemDropdown,
   BNavForm,
 } from "bootstrap-vue";
-import { mapGetters} from 'vuex'
+import { mapGetters } from "vuex";
 export default {
-   computed: {
-    ...mapGetters(["Nome"]),
+  computed: {
+    ...mapGetters(["Nome", "Role"]),
   },
   data() {
     return {
@@ -58,7 +70,7 @@ export default {
     BNavItemDropdown,
     BNavForm,
     UserIcon,
-    LogOutIcon
+    LogOutIcon,
   },
 };
 </script>
@@ -73,8 +85,20 @@ export default {
   background-color: whitesmoke;
 }
 .p {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  color: #110729;
+  font-size: 14px;
+}
+.aaa {
+  position: relative;
+  top: 16px;
+  right: 100%;
+}
+.aa {
+  position: absolute;
+  font-size: 12px;
+  right: 3px;
+}
+.teste{
+  top: -21px;
+  height: 50px;
 }
 </style>

@@ -7,7 +7,7 @@
           <p class="sub">Email</p>
           <b-input
             type="email"
-            placeholder="exemple: admin@gmail.com"
+            placeholder="exemplo: admin@gmail.com"
             class="input shadow-none"
             v-model="usuario.email"
           />
@@ -18,19 +18,19 @@
             v-if="showPassword"
             class="input shadow-none"
             type="text"
-            placeholder="exemple: senha123@"
+            placeholder="exemplo: senha123@"
             v-model="usuario.password"
           />
           <b-input
             v-else
             class="input shadow-none"
             type="password"
-            placeholder="exemple: senha123@"
+            placeholder="exemplo: senha123@"
             v-model="usuario.password"
           />
           <i type="button" @click="toggleShow">
-            <eye-icon size="1.5x" v-if="showPassword" />
-            <eye-off-icon size="1.5x" v-else />
+            <eye-icon size="1.3x" v-if="showPassword" />
+            <eye-off-icon size="1.3x" v-else />
           </i>
         </b-form-group>
         <div class="btn pt-4">
