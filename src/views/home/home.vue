@@ -3,7 +3,7 @@
     <Menu />
     <div class="HomeCab">
       <h2 class="title">Bem Vindo {{ Nome }}, ao Gerenciador</h2>
-      <img class="HomeImg" src="../../assets/Group275.png" />
+      <img class="HomeImg" src="../../assets/Group275.png" title="Home gerenciador imagem"/>
     </div>
     <b-row class="d-flex align-items-center justify-content-center conteudo">
       <div class="widhtdiv">

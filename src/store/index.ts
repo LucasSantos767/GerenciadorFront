@@ -14,7 +14,8 @@ export default new Vuex.Store({
   getters: {
     IsAdmin: (state) => state.role === 'admin',
     Nome: (state) => state.usuario,
-    Email: (state)=> state.email
+    Email: (state)=> state.email,
+    Role: (state)=> state.role
   },
   mutations: {
     USUARIO_LOGADO(state, { token }) {
