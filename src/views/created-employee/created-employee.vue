@@ -39,8 +39,8 @@
             v-model="usuario.password"
           />
           <i type="button" @click="toggleShow">
-            <eye-off-icon size="1.5x" v-if="showPassword" />
-            <eye-icon size="1.5x" v-else />
+            <eye-off-icon size="1.3x" v-if="showPassword" />
+            <eye-icon size="1.3x" v-else />
           </i>
         </b-form-group>
         <b-form-group class="inputPosition">
