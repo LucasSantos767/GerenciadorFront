@@ -121,7 +121,7 @@
               :options="options"
             />
           </b-form-group>
-          <div class="d-flex justify-content-between pt-2">
+          <div class="d-flex justify-content-between btn-size">
             <b-button @click.prevent="Editar()" variant="outline-success">
               Atualizar
             </b-button>
@@ -136,13 +136,13 @@
         centered
         hide-footer
         hide-header-close
-        header-bg-variant="danger"
+        header-bg-variant="dark"
         header-text-variant="light"
         title="Deletar Funcionário"
         ref="modal-fechar"
       >
         <b-card-text> Deseja excluir este usuário? </b-card-text>
-        <div class="d-flex justify-content-between pt-2">
+        <div class="d-flex justify-content-between btn-size">
           <b-button @click.prevent="Deletar()" variant="outline-danger">
             Excluir
           </b-button>
@@ -408,6 +408,10 @@ export default {
 }
 .icon-users{
   margin-right: 5px;
+}
+.btn-size{
+  margin-left: 26%;
+  width: 50%;
 }
 @media screen and (max-width: 800px) {
   .input {

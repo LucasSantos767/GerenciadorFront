@@ -15,7 +15,7 @@
               {{ Nome }}
               <p class="aa">{{ Role }}</p>
             </div>
-            <user-icon size="1.5x" class="custom-class" />
+            <user-icon size="1.7x" class="custom-class" />
           </template>
           <b-dropdown-item @click="efetuarLogout"
             ><log-out-icon
@@ -90,6 +90,7 @@ export default {
 .aaa {
   position: relative;
   top: 16px;
+  font-size: 18px;
   right: 100%;
 }
 .aa {
