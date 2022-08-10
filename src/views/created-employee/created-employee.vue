@@ -197,7 +197,7 @@ i {
   background-color: #110729;
 }
 .custom-class:hover {
-  background-color: #07cbf5;]
+  background-color: #07cbf5;
 }
 @media screen and (max-width: 800px) {
   .FormL {
