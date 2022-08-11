@@ -53,8 +53,7 @@
           />
         </b-form-group>
 
-          <b-button type="submit" class="custom-class">Criar</b-button>
-        
+        <b-button type="submit" class="custom-class">Criar</b-button>
       </b-form>
     </div>
   </div>
@@ -93,8 +92,10 @@ export default {
           this.$toast(`Usuário cadastrado com sucesso.`, {
             type: "success",
           });
-          this.usuario = "";
-          this.usuario.password = null
+          this.usuario.name = null;
+          this.usuario.email = null;
+          this.usuario.password = null;
+          this.usuario.role = null;
         })
         .catch((erro) => {
           if (erro.request.status == 400) {
