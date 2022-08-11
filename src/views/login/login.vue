@@ -70,33 +70,28 @@ export default {
       this.showPassword = !this.showPassword;
     },
     Login() {
-      if (this.usuario.email !== this.$store.state.email) {
-        this.$store
-          .dispatch("Login", this.usuario)
-          .then(() => {
-            this.$router.push({ name: "home" });
-            this.$toast(`Login efetuado com sucesso`, {
-              type: "success",
-            });
-            this.$store.dispatch("Role", this.usuario);
-          })
-          .catch((erro) => {
-            if (erro.request.status == 400) {
-              this.$toast(`Email e senha precisam ser preenchidos.`, {
-                type: "info",
-              });
-            }
-            if (erro.request.status == 401) {
-              this.$toast(`Email ou senha inválidos.`, {
-                type: "error",
-              });
-            }
+      this.$store
+        .dispatch("Login", this.usuario)
+        .then(() => {
+          this.$router.push({ name: "home" });
+          this.$toast(`Login efetuado com sucesso`, {
+            type: "success",
           });
-      } else {
-        this.$toast(`Usuário já esta logado.`, {
-          type: "error",
+          this.$store.dispatch("Role", this.usuario);
+          localStorage.setItem("sessionLogin", this.usuario.email);
+        })
+        .catch((erro) => {
+          if (erro.request.status == 400) {
+            this.$toast(`Email e senha precisam ser preenchidos.`, {
+              type: "info",
+            });
+          }
+          if (erro.request.status == 401) {
+            this.$toast(`Email ou senha inválidos.`, {
+              type: "error",
+            });
+          }
         });
-      }
     },
   },
   components: {

@@ -3,7 +3,11 @@
     <Menu />
     <div class="HomeCab">
       <h2 class="title">Bem Vindo {{ Nome }}, ao Gerenciador</h2>
-      <img class="HomeImg" src="../../assets/Group275.png" title="Home gerenciador imagem"/>
+      <img
+        class="HomeImg"
+        src="../../assets/Group275.png"
+        title="Home gerenciador imagem"
+      />
     </div>
     <b-row class="d-flex align-items-center justify-content-center conteudo">
       <div class="widhtdiv">
@@ -33,12 +37,34 @@
 import { UsersIcon, UserPlusIcon, SettingsIcon } from "vue-feather-icons";
 import { mapGetters } from "vuex";
 import Menu from "@/components/menu.vue";
+import { SocketModule } from "@/services/socket";
 
 export default {
+  data() {
+    return {
+      socketService: SocketModule.connect(),
+    };
+  },
+
   computed: {
-    ...mapGetters(["IsAdmin", "Nome"]),
+    ...mapGetters(["IsAdmin", "Nome", "Email"]),
+  },
+  mounted() {
+    this.socketService.registerListener("is-logged", "is-logged", (data) => {
+      let sessionUserLogin = localStorage.getItem("sessionLogin");
+      if (String(sessionUserLogin) === String(data)) this.efetuarLogout();
+    });
   },
   methods: {
+    efetuarLogout() {
+      this.$store.commit(
+        "DESLOGAR_USUARIO",
+        this.$toast(`Conta logada em outro dispositivo!`, {
+          type: "info",
+        })
+      );
+      this.$router.push({ name: "login" });
+    },
     func() {
       this.$router.push({ name: "employees" });
     },
