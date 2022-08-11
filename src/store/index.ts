@@ -9,7 +9,7 @@ export default new Vuex.Store({
     token: null,
     usuario: null,
     role: null,
-    email:null
+    email: localStorage.getItem('email') || null 
   },
   getters: {
     IsAdmin: (state) => state.role === 'admin',
@@ -26,6 +26,7 @@ export default new Vuex.Store({
       state.usuario = null
       state.role = null
       state.email = null
+      localStorage.removeItem("sessionLogin")
     },
     SALVAR_ROLE(state, { role, usuario,email }) {
       state.role = role
@@ -40,7 +41,7 @@ export default new Vuex.Store({
           .then(response => {
             commit('USUARIO_LOGADO', {
               token: response.data.access_token,
-              role: usuario.role
+              role: usuario.role,
             })
             resolve(response.data)
           })
