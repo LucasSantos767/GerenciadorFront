@@ -54,6 +54,10 @@ export default {
       let sessionUserLogin = localStorage.getItem("sessionLogin");
       if (String(sessionUserLogin) === String(data)) this.efetuarLogout();
     });
+    this.socketService.registerListener("removed-user","removed-user",(id)=>{
+      let sessionUserId = localStorage.getItem('sessionId');
+      if(String(sessionUserId)=== String(id)) this.efetuarLogout();
+    })
   },
   methods: {
     efetuarLogout() {

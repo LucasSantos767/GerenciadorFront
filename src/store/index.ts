@@ -9,6 +9,7 @@ export default new Vuex.Store({
     token: null,
     usuario: null,
     role: null,
+    id: localStorage.getItem('id') || null, 
     email: localStorage.getItem('email') || null 
   },
   getters: {
@@ -26,12 +27,13 @@ export default new Vuex.Store({
       state.usuario = null
       state.role = null
       state.email = null
-      localStorage.removeItem("sessionLogin")
+      localStorage.clear()
     },
-    SALVAR_ROLE(state, { role, usuario,email }) {
+    SALVAR_ROLE(state, { role, usuario,email,id }) {
       state.role = role
       state.usuario = usuario
       state.email = email
+      state.id = id
     }
   },
   actions: {
@@ -53,10 +55,12 @@ export default new Vuex.Store({
     Role({ commit }, usuario) {
       http.get(`search/${usuario.email}`)
         .then(response => {
+          localStorage.setItem('sessionId',response.data._id)
           commit('SALVAR_ROLE', {
             role: response.data.role,
             usuario: response.data.name,
-            email: response.data.email
+            email: response.data.email,
+            id: response.data._id
           })
         })
     },
