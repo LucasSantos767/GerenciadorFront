@@ -238,7 +238,7 @@ export default {
   },
   methods: {
     async Lista() {
-      await this.$http
+     this.$http
         .get("list-all")
         .then((response) => (this.usuarios = response.data))
         .catch((erro) => {
