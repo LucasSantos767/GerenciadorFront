@@ -60,7 +60,6 @@
 </template>
 <script>
 import Menu from "@/components/menu.vue";
-import { SocketModule } from "@/services/socket";
 import { EyeIcon, EyeOffIcon } from "vue-feather-icons";
 export default {
   data() {
@@ -72,7 +71,6 @@ export default {
         password: "",
         role: null,
       },
-      socketService: SocketModule.connect(),
       selected: null,
       options: [
         { value: null, text: "-- Selecione um cargo --", disabled: true },

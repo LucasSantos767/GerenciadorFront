@@ -12,7 +12,8 @@
         "
       >
         <p class="listagem">
-          <users-icon size="1.5x" class="custom-class icon-users" /> Lista de Usuários
+          <users-icon size="1.5x" class="custom-class icon-users" /> Lista de
+          Usuários
         </p>
         <b-form-select
           v-model="perPage"
@@ -116,32 +117,29 @@ export default {
   created() {
     this.Lista();
   },
-  updated() {
-    this.socketService.registerListener(
+  async updated() {
+    await this.socketService.registerListener(
       "update",
       "update",
       ({ email: string }) => {
-        this.$http
-          .get("list-all")
-          .then((response) => (this.usuarios = response.data));
+        this.usuarios = [];
+        this.Lista();
       }
     );
-    this.socketService.registerListener(
+    await this.socketService.registerListener(
       "removed-user",
       "removed-user",
       ({ email: string }) => {
-        this.$http
-          .get("list-all")
-          .then((response) => (this.usuarios = response.data));
+        this.usuarios = [];
+        this.Lista();
       }
     );
-    this.socketService.registerListener(
+    await this.socketService.registerListener(
       "new-user",
       "new-user",
       ({ email: string }) => {
-        this.$http
-          .get("list-all")
-          .then((response) => (this.usuarios = response.data));
+        this.usuarios = [];
+        this.Lista();
       }
     );
   },
@@ -218,7 +216,7 @@ export default {
   margin-left: 0.5%;
   margin-top: 0.5%;
 }
-.icon-users{
+.icon-users {
   margin-right: 5px;
 }
 @media screen and (max-width: 800px) {

@@ -1,12 +1,12 @@
 <template>
   <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <b-link
+      <a
         class="navbar-brand colonav"
-        :to="{ name: 'home' }"
+        href="/app/home"
         title="Voltar a tela ínicial"
       >
-        Gerenciador</b-link
+        Gerenciador</a
       >
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown right class="height-info">

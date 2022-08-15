@@ -54,12 +54,25 @@ export default {
       let sessionUserLogin = localStorage.getItem("sessionLogin");
       if (String(sessionUserLogin) === String(data)) this.efetuarLogout();
     });
+    this.socketService.registerListener("removed-user","removed-user",(id)=>{
+      let sessionUserId = localStorage.getItem('sessionId');
+      if(String(sessionUserId)=== String(id)) this.derrubarUser();
+    })
   },
   methods: {
     efetuarLogout() {
       this.$store.commit(
         "DESLOGAR_USUARIO",
         this.$toast(`Conta logada em outro dispositivo!`, {
+          type: "info",
+        })
+      );
+      this.$router.push({ name: "login" });
+    },
+    derrubarUser() {
+      this.$store.commit(
+        "DESLOGAR_USUARIO",
+        this.$toast(`Conta deletada do sistema!`, {
           type: "info",
         })
       );

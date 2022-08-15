@@ -11,7 +11,9 @@
           infoTable
         "
       >
-        <p class="listagem"><users-icon size="1.5x" class="icon-users"/> Lista de Usuários</p>
+        <p class="listagem">
+          <users-icon size="1.5x" class="icon-users" /> Lista de Usuários
+        </p>
         <b-form-select
           v-model="perPage"
           :options="pageOptions"
@@ -213,44 +215,30 @@ export default {
       return this.usuarios.length;
     },
   },
-  async mounted() {
-    await this.Lista();
-    this.socketService.registerListener(
-      "update",
-      "update",
-      ({ email: string }) => {
-        this.$toast(`Usuário atualizado com sucesso.`, {
-          type: "success",
-        });
-        this.$bvModal.hide("modal-login");
-        this.usuarios = [];
-        this.Lista();
-      }
-    );
+  created() {
+    this.Lista();
+  },
+  async updated() {
+    this.socketService.registerListener("update", "update", (data) => {
+      this.usuarios = [];
+      this.Lista();
+    });
     this.socketService.registerListener(
       "removed-user",
       "removed-user",
-      ({ email: string }) => {
-        this.$toast(`Usuário deletado com sucesso.`, {
-          type: "success",
-        });
-        this.$bvModal.hide("modal-danger");
+      (data) => {
         this.usuarios = [];
         this.Lista();
       }
     );
-    this.socketService.registerListener(
-      "new-user",
-      "new-user",
-      ({ email: string }) => {
-        this.usuarios = [];
-        this.Lista();
-      }
-    );
+    this.socketService.registerListener("new-user", "new-user", (data) => {
+      this.usuarios = [];
+      this.Lista();
+    });
   },
   methods: {
     async Lista() {
-      await this.$http
+     this.$http
         .get("list-all")
         .then((response) => (this.usuarios = response.data))
         .catch((erro) => {
@@ -264,7 +252,16 @@ export default {
         .finally(() => {});
     },
     Editar() {
-      this.$store.dispatch('Editar',this.conteudotable)
+      this.$http
+        .patch(`update/${this.conteudotable._id}`, this.conteudotable)
+        .then((response) => {
+          this.$bvModal.hide("modal-login");
+          this.usuarios = [];
+          this.Lista();
+          this.$toast(`Usuário atualizado com sucesso.`, {
+            type: "success",
+          });
+        })
         .catch((erro) => {
           if (erro.request.status == 500) {
             this.$toast(`falta dados na requisição.`, {
@@ -274,7 +271,16 @@ export default {
         });
     },
     Deletar() {
-      this.$store.dispatch('Deletar',this.conteudotable)
+      this.$http
+        .delete(`delete/${this.conteudotable._id}`)
+        .then((response) => {
+          this.$toast(`Usuário deletado com sucesso.`, {
+            type: "success",
+          });
+          this.$bvModal.hide("modal-danger");
+          this.usuarios = [];
+          this.Lista();
+        })
         .catch((erro) => console.log(erro));
     },
     hideModal() {
@@ -406,10 +412,10 @@ export default {
   margin-left: 0.5%;
   margin-top: 0.5%;
 }
-.icon-users{
+.icon-users {
   margin-right: 5px;
 }
-.btn-size{
+.btn-size {
   margin-left: 26%;
   width: 50%;
 }
@@ -417,7 +423,7 @@ export default {
   .input {
     width: 100%;
   }
-  .inputselect{
+  .inputselect {
     width: 30%;
   }
   .pesquisa {

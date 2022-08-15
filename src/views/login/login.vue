@@ -77,8 +77,12 @@ export default {
           this.$toast(`Login efetuado com sucesso`, {
             type: "success",
           });
-          this.$store.dispatch("Role", this.usuario);
+          this.$store.dispatch("Role", this.usuario)
+          .then((response)=>{
+
+          })
           localStorage.setItem("sessionLogin", this.usuario.email);
+          localStorage.setItem('sessionId',)
         })
         .catch((erro) => {
           if (erro.request.status == 400) {
